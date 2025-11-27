@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कर्मचारी बिदा निवेदन</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #ffffff;
+        }
+
+        .form-container {
+            background: #e4e4e4;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 450px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            color: #004E17;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        input[readonly] {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-top: 15px;
+            border: none;
+            background: #004E17;
+            color: white;
+            font-size: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #28a745;
+        }
+
+        @page {
+            size: A4;
+            margin: 25mm;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+
+            #printLetter,
+            #printLetter * {
+                visibility: visible !important;
+            }
+
+            #printLetter {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+
+            .form-container,
+            h2,
+            #printBtn {
+                display: none !important;
+            }
+        }
+
+        #printLetter {
+            line-height: 1.6;
+            font-size: 16px;
+            background: white;
+            padding: 2px;
+            text-align: justify;
+            border-radius: 8px;
+        }
+
+        .signature-line {
+            margin-top: 60px;
+            width: 150px;
+            border-top: 2px dotted #000;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+
+        .date-picker {
+            position: relative;
+        }
+
+        .calendar-popup {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 2px solid #004E17;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .calendar-popup.active {
+            display: block;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .calendar-header button {
+            margin: 0;
+            padding: 5px 10px;
+            font-size: 18px;
+        }
+
+        .calendar-header select {
+            width: auto;
+            padding: 5px;
+            margin: 0 5px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .calendar-day {
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .calendar-day:hover {
+            background: #e8f5e9;
+        }
+
+        .calendar-day.selected {
+            background: #004E17;
+            color: white;
+        }
+
+        .calendar-day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .day-header {
+            font-weight: bold;
+            padding: 5px;
+            text-align: center;
+            color: #004E17;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2 style="
+        background-color: #004E17;
+        color: white;
+        padding: 10px;
+        text-align: center;">कर्मचारी बिदा निवेदन</h2>
+
+    <div class="container">
+
+        <div class="form-container">
+            <form id="leaveForm">
+
+                <label>नाम:</label>
+                <select id="name" required>
+                    <option value="साप्चुहाङ तुम्वाहाङफे">साप्चुहाङ तुम्वाहाङफे</option>
+                    <option value="अमृता तिम्लसिना">अमृता तिम्लसिना</option>
+                    <option value="कुन्जुम सुब्बा">कुन्जुम सुब्बा</option>
+                    <option value="सुमान कार्की">सुमान कार्की</option>
+                    <option value="उज्वल शाक्य">उज्वल शाक्य</option>
+                    <option value="सबीना ईवारम">सबीना ईवारम</option>
+                    <option value="मिना राई">मिना राई</option>
+                    <option value="निर्माया राई">निर्माया राई</option>
+                    <option value="फुल कुमारी नेम्बाङ">फुल कुमारी नेम्बाङ</option>
+                </select>
+
+                <label>निवेदन मिति:</label>
+                <div class="date-picker">
+                    <input type="text" id="date" placeholder="मिति छान्नुहोस्" required readonly>
+                    <div class="calendar-popup" id="calendar">
+                        <div class="calendar-header">
+                            <button type="button" id="prevMonth">◀</button>
+                            <div>
+                                <select id="monthSelect"></select>
+                                <select id="yearSelect"></select>
+                            </div>
+                            <button type="button" id="nextMonth">▶</button>
+                        </div>
+                        <div class="calendar-grid" id="calendarGrid"></div>
+                    </div>
+                </div>
+
+                <label>बिदा मिति देखि:</label>
+                <div class="date-picker">
+                    <input type="text" id="dateFrom" placeholder="सुरु मिति छान्नुहोस्" required readonly>
+                    <div class="calendar-popup" id="calendarFrom">
+                        <div class="calendar-header">
+                            <button type="button" id="prevMonthFrom">◀</button>
+                            <div>
+                                <select id="monthSelectFrom"></select>
+                                <select id="yearSelectFrom"></select>
+                            </div>
+                            <button type="button" id="nextMonthFrom">▶</button>
+                        </div>
+                        <div class="calendar-grid" id="calendarGridFrom"></div>
+                    </div>
+                </div>
+
+                <label>बिदा मिति सम्म:</label>
+                <div class="date-picker">
+                    <input type="text" id="dateTo" placeholder="अन्तिम मिति छान्नुहोस्" required readonly>
+                    <div class="calendar-popup" id="calendarTo">
+                        <div class="calendar-header">
+                            <button type="button" id="prevMonthTo">◀</button>
+                            <div>
+                                <select id="monthSelectTo"></select>
+                                <select id="yearSelectTo"></select>
+                            </div>
+                            <button type="button" id="nextMonthTo">▶</button>
+                        </div>
+                        <div class="calendar-grid" id="calendarGridTo"></div>
+                    </div>
+                </div>
+
+                <label>पद:</label>
+                <select id="designation" required>
+                    <option value="सूचना प्रविधी तथा वित्त साहयक">सूचना प्रविधी तथा वित्त साहयक</option>
+                    <option value="क्यासीयर">क्यासीयर</option>
+                    <option value="वित्त तथा प्रशासन अधिकृत">वित्त तथा प्रशासन अधिकृत</option>
+                    <option value="लेखापाल">लेखापाल</option>
+                    <option value="ऋण अधिकृत">ऋण अधिकृत</option>
+                    <option value="बजार प्रतिनिधि">बजार प्रतिनिधि</option>
+                    <option value="कार्यलय साहायक">कार्यलय साहायक</option>
+                    <option value="प्रमुख कार्यकारी अधिकृत">प्रमुख कार्यकारी अधिकृत</option>
+                </select>
+
+                <label>बिदाको किसिम:</label>
+                <select id="leaveType" required>
+                    <option value="">-- बिदाको किसिम छान्नुहोस् --</option>
+                    <option value="विरामी बिदा">विरामी बिदा</option>
+                    <option value="घरायसी बिदा">घरायसी बिदा</option>
+                    <option value="प्रसूति बिदा">प्रसूति बिदा</option>
+                    <option value="शोक बिदा">शोक बिदा</option>
+                    <option value="वार्षिक बिदा">वार्षिक बिदा</option>
+                    <option value="अध्ययन बिदा">अध्ययन बिदा</option>
+                    <option value="अन्य">अन्य</option>
+                </select>
+
+
+
+                <button type="submit">निवेदन तयार गर्नुहोस्</button>
+            </form>
+        </div>
+
+        <div id="printLetter" style="flex: 1;">
+            <div id="letterContent">
+
+                <p align="right">
+                    मितिः [DATE]<br><br>
+                </p>
+
+                <br>
+                श्रीमान् प्रमुख कार्यकारी अधिकृत ज्यू,<br>
+                सुयोग्य वचत तथा ऋण सहकारी संस्था लि.<br>
+                कोटेश्वर ३२, काठमाण्डौ।<br><br>
+
+                <p align="center"><b>विषयः बिदा पाउँ भन्ने वारे।</b><br></p>
+
+                <p align="justify">
+                    महोदय,<br><br>
+                    उपरोक्त सम्बन्धमा म यस संस्थाको [DESIGNATION] पदमा कार्यरत [NAME]ले मिति
+                    [DATE_FROM] देखि [DATE_TO] सम्म [LEAVE_TYPE] लिनु पर्ने भएकोले
+                    सो अवधिको लागि बिदा स्वीकृत गरिदिनु हुन विनम्र अनुरोध गर्दछु।<br><br>
+
+
+
+                    धन्यवाद।<br><br>
+                </p>
+
+                <p align="left"><b>निवेदक</b><br>
+                <div class="signature-line"></div>
+                <b>[NAME]</b><br>
+                <b>[DESIGNATION]</b>
+                </p>
+
+                <button id="printBtn" onclick="window.print()">प्रिन्ट गर्नुहोस्</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const nepaliMonths = ['बैशाख', 'जेठ', 'असार', 'साउन', 'भदौ', 'असोज', 'कार्तिक', 'मंसिर', 'पुष', 'माघ', 'फाल्गुन', 'चैत'];
+        const nepaliDays = ['आइत', 'सोम', 'मंगल', 'बुध', 'बिहि', 'शुक्र', 'शनि'];
+        const nepaliNumerals = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+
+        const nepaliMonthDays = {
+            2081: [31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2082: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2083: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
+            2084: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2085: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31]
+        };
+
+        function toNepaliNumber(num) {
+            return String(num).split('').map(d => nepaliNumerals[parseInt(d)]).join('');
+        }
+
+        let currentNepYear = 2081;
+        let currentNepMonth = 7;
+        let currentNepDay = 3;
+
+        let selectedDate = null;
+        let selectedDateFrom = null;
+        let selectedDateTo = null;
+        const originalLetter = document.getElementById("letterContent").innerHTML;
+
+        function initCalendar() {
+            const monthSelect = document.getElementById('monthSelect');
+            const yearSelect = document.getElementById('yearSelect');
+
+            nepaliMonths.forEach((month, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx;
+                opt.textContent = month;
+                monthSelect.appendChild(opt);
+            });
+
+            for (let y = 2080; y <= 2085; y++) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = toNepaliNumber(y);
+                yearSelect.appendChild(opt);
+            }
+
+            monthSelect.value = currentNepMonth;
+            yearSelect.value = currentNepYear;
+            renderCalendar(currentNepYear, currentNepMonth);
+        }
+
+        function initCalendarFrom() {
+            const monthSelect = document.getElementById('monthSelectFrom');
+            const yearSelect = document.getElementById('yearSelectFrom');
+
+            nepaliMonths.forEach((month, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx;
+                opt.textContent = month;
+                monthSelect.appendChild(opt);
+            });
+
+            for (let y = 2080; y <= 2085; y++) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = toNepaliNumber(y);
+                yearSelect.appendChild(opt);
+            }
+
+            monthSelect.value = currentNepMonth;
+            yearSelect.value = currentNepYear;
+            renderCalendarFrom(currentNepYear, currentNepMonth);
+        }
+
+        function initCalendarTo() {
+            const monthSelect = document.getElementById('monthSelectTo');
+            const yearSelect = document.getElementById('yearSelectTo');
+
+            nepaliMonths.forEach((month, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx;
+                opt.textContent = month;
+                monthSelect.appendChild(opt);
+            });
+
+            for (let y = 2080; y <= 2085; y++) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = toNepaliNumber(y);
+                yearSelect.appendChild(opt);
+            }
+
+            monthSelect.value = currentNepMonth;
+            yearSelect.value = currentNepYear;
+            renderCalendarTo(currentNepYear, currentNepMonth);
+        }
+
+        function renderCalendar(year, month) {
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            nepaliDays.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+
+            const daysInMonth = nepaliMonthDays[year] ? nepaliMonthDays[year][month] : 30;
+            const startDay = (year + month) % 7;
+
+            for (let i = 0; i < startDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'calendar-day disabled';
+                grid.appendChild(empty);
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.textContent = toNepaliNumber(day);
+                dayCell.onclick = () => selectDate(year, month, day);
+
+                if (selectedDate && selectedDate.year === year && selectedDate.month === month && selectedDate.day === day) {
+                    dayCell.classList.add('selected');
+                }
+
+                grid.appendChild(dayCell);
+            }
+        }
+
+        function selectDate(year, month, day) {
+            selectedDate = { year, month, day };
+            const dateStr = `${toNepaliNumber(year)}-${toNepaliNumber(month + 1).padStart(2, '०')}-${toNepaliNumber(day).padStart(2, '०')}`;
+            document.getElementById('date').value = dateStr;
+            document.getElementById('calendar').classList.remove('active');
+            renderCalendar(year, month);
+        }
+
+        function renderCalendarFrom(year, month) {
+            const grid = document.getElementById('calendarGridFrom');
+            grid.innerHTML = '';
+
+            nepaliDays.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+
+            const daysInMonth = nepaliMonthDays[year] ? nepaliMonthDays[year][month] : 30;
+            const startDay = (year + month) % 7;
+
+            for (let i = 0; i < startDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'calendar-day disabled';
+                grid.appendChild(empty);
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.textContent = toNepaliNumber(day);
+                dayCell.onclick = () => selectDateFrom(year, month, day);
+
+                if (selectedDateFrom && selectedDateFrom.year === year && selectedDateFrom.month === month && selectedDateFrom.day === day) {
+                    dayCell.classList.add('selected');
+                }
+
+                grid.appendChild(dayCell);
+            }
+        }
+
+        function selectDateFrom(year, month, day) {
+            selectedDateFrom = { year, month, day };
+            const dateStr = `${toNepaliNumber(year)}-${toNepaliNumber(month + 1).padStart(2, '०')}-${toNepaliNumber(day).padStart(2, '०')}`;
+            document.getElementById('dateFrom').value = dateStr;
+            document.getElementById('calendarFrom').classList.remove('active');
+            renderCalendarFrom(year, month);
+        }
+
+        function renderCalendarTo(year, month) {
+            const grid = document.getElementById('calendarGridTo');
+            grid.innerHTML = '';
+
+            nepaliDays.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+
+            const daysInMonth = nepaliMonthDays[year] ? nepaliMonthDays[year][month] : 30;
+            const startDay = (year + month) % 7;
+
+            for (let i = 0; i < startDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'calendar-day disabled';
+                grid.appendChild(empty);
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.textContent = toNepaliNumber(day);
+                dayCell.onclick = () => selectDateTo(year, month, day);
+
+                if (selectedDateTo && selectedDateTo.year === year && selectedDateTo.month === month && selectedDateTo.day === day) {
+                    dayCell.classList.add('selected');
+                }
+
+                grid.appendChild(dayCell);
+            }
+        }
+
+        function selectDateTo(year, month, day) {
+            selectedDateTo = { year, month, day };
+            const dateStr = `${toNepaliNumber(year)}-${toNepaliNumber(month + 1).padStart(2, '०')}-${toNepaliNumber(day).padStart(2, '०')}`;
+            document.getElementById('dateTo').value = dateStr;
+            document.getElementById('calendarTo').classList.remove('active');
+            renderCalendarTo(year, month);
+        }
+
+        document.getElementById('date').onclick = () => {
+            document.getElementById('calendar').classList.toggle('active');
+        };
+
+        document.getElementById('dateFrom').onclick = () => {
+            document.getElementById('calendarFrom').classList.toggle('active');
+        };
+
+        document.getElementById('dateTo').onclick = () => {
+            document.getElementById('calendarTo').classList.toggle('active');
+        };
+
+        document.getElementById('prevMonth').onclick = () => {
+            currentNepMonth--;
+            if (currentNepMonth < 0) {
+                currentNepMonth = 11;
+                currentNepYear--;
+            }
+            document.getElementById('monthSelect').value = currentNepMonth;
+            document.getElementById('yearSelect').value = currentNepYear;
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('nextMonth').onclick = () => {
+            currentNepMonth++;
+            if (currentNepMonth > 11) {
+                currentNepMonth = 0;
+                currentNepYear++;
+            }
+            document.getElementById('monthSelect').value = currentNepMonth;
+            document.getElementById('yearSelect').value = currentNepYear;
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('monthSelect').onchange = (e) => {
+            currentNepMonth = parseInt(e.target.value);
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('yearSelect').onchange = (e) => {
+            currentNepYear = parseInt(e.target.value);
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('prevMonthFrom').onclick = () => {
+            currentNepMonth--;
+            if (currentNepMonth < 0) {
+                currentNepMonth = 11;
+                currentNepYear--;
+            }
+            document.getElementById('monthSelectFrom').value = currentNepMonth;
+            document.getElementById('yearSelectFrom').value = currentNepYear;
+            renderCalendarFrom(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('nextMonthFrom').onclick = () => {
+            currentNepMonth++;
+            if (currentNepMonth > 11) {
+                currentNepMonth = 0;
+                currentNepYear++;
+            }
+            document.getElementById('monthSelectFrom').value = currentNepMonth;
+            document.getElementById('yearSelectFrom').value = currentNepYear;
+            renderCalendarFrom(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('monthSelectFrom').onchange = (e) => {
+            currentNepMonth = parseInt(e.target.value);
+            renderCalendarFrom(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('yearSelectFrom').onchange = (e) => {
+            currentNepYear = parseInt(e.target.value);
+            renderCalendarFrom(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('prevMonthTo').onclick = () => {
+            currentNepMonth--;
+            if (currentNepMonth < 0) {
+                currentNepMonth = 11;
+                currentNepYear--;
+            }
+            document.getElementById('monthSelectTo').value = currentNepMonth;
+            document.getElementById('yearSelectTo').value = currentNepYear;
+            renderCalendarTo(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('nextMonthTo').onclick = () => {
+            currentNepMonth++;
+            if (currentNepMonth > 11) {
+                currentNepMonth = 0;
+                currentNepYear++;
+            }
+            document.getElementById('monthSelectTo').value = currentNepMonth;
+            document.getElementById('yearSelectTo').value = currentNepYear;
+            renderCalendarTo(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('monthSelectTo').onchange = (e) => {
+            currentNepMonth = parseInt(e.target.value);
+            renderCalendarTo(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('yearSelectTo').onchange = (e) => {
+            currentNepYear = parseInt(e.target.value);
+            renderCalendarTo(currentNepYear, currentNepMonth);
+        };
+
+        document.addEventListener('click', (e) => {
+            const calendar = document.getElementById('calendar');
+            const dateInput = document.getElementById('date');
+            const calendarFrom = document.getElementById('calendarFrom');
+            const dateInputFrom = document.getElementById('dateFrom');
+            const calendarTo = document.getElementById('calendarTo');
+            const dateInputTo = document.getElementById('dateTo');
+
+            if (!calendar.contains(e.target) && e.target !== dateInput) {
+                calendar.classList.remove('active');
+            }
+            if (!calendarFrom.contains(e.target) && e.target !== dateInputFrom) {
+                calendarFrom.classList.remove('active');
+            }
+            if (!calendarTo.contains(e.target) && e.target !== dateInputTo) {
+                calendarTo.classList.remove('active');
+            }
+        });
+
+        document.getElementById("leaveForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const date = document.getElementById("date").value;
+            const dateFrom = document.getElementById("dateFrom").value;
+            const dateTo = document.getElementById("dateTo").value;
+            const designation = document.getElementById("designation").value;
+            const leaveType = document.getElementById("leaveType").value;
+
+
+            let letter = originalLetter;
+            letter = letter.replace(/\[NAME\]/g, name)
+                .replace(/\[DATE\]/g, date)
+                .replace(/\[DATE_FROM\]/g, dateFrom)
+                .replace(/\[DATE_TO\]/g, dateTo)
+                .replace(/\[DESIGNATION\]/g, designation)
+                .replace(/\[LEAVE_TYPE\]/g, leaveType);
+
+            document.getElementById("letterContent").innerHTML = letter;
+        });
+
+        initCalendar();
+        initCalendarFrom();
+        initCalendarTo();
+    </script>
+
+</body>
+
+</html>

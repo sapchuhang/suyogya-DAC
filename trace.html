@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trace Map Application – A4 Print</title>
+    <link rel="icon" type="image/png" sizes="32x28" href="./assets/favicon.png">
+
+    <style>
+        body {
+            font-family: "Stack Sans Notch", Arial, sans-serif;
+            margin: 20px;
+            background: #ffffff;
+        }
+
+        .form-container {
+            background: #e4e4e4;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 450px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            color: #004E17;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-top: 15px;
+            border: none;
+            background: #004E17;
+            color: white;
+            font-size: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #28a745;
+        }
+
+        /* A4 Print Settings */
+        @page {
+            size: A4;
+            margin: 20mm 25mm;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+
+            body * {
+                visibility: hidden !important;
+            }
+
+            #printLetter,
+            #printLetter * {
+                visibility: visible !important;
+            }
+
+            #printLetter {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .form-container,
+            h2,
+            #printBtn {
+                display: none !important;
+            }
+
+            table {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Letter formatting */
+        #printLetter {
+            line-height: 1.8;
+            font-size: 14px;
+            background: white;
+            padding: 0;
+            margin: 0;
+        }
+
+        .signature-line {
+            margin-top: 60px;
+            width: 150px;
+            border-top: 2px dotted #000;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+
+        /* Nepali Date Picker Styling */
+        .date-picker {
+            position: relative;
+        }
+
+        .calendar-popup {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 2px solid #004E17;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .calendar-popup.active {
+            display: block;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .calendar-header button {
+            margin: 0;
+            padding: 5px 10px;
+            font-size: 18px;
+        }
+
+        .calendar-header select {
+            width: auto;
+            padding: 5px;
+            margin: 0 5px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .calendar-day {
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .calendar-day:hover {
+            background: #e8f5e9;
+        }
+
+        .calendar-day.selected {
+            background: #004E17;
+            color: white;
+        }
+
+        .calendar-day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .day-header {
+            font-weight: bold;
+            padding: 5px;
+            text-align: center;
+            color: #004E17;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2 style="
+        background-color: #004E17;
+        color: white;
+        padding: 10px;
+        text-align: center;">नक्सा ट्रेस उतार निवेदन</h2>
+
+    <div class="container">
+
+        <div class="form-container">
+            <form id="traceForm">
+
+                <label>नापी कार्यालय:</label>
+                <select id="surveyOffice" required>
+                    <option value="">नापी कार्यालय छान्नुहोस्</option>
+                    <!-- Kathmandu Valley -->
+                    <option value="डिल्लीबजार">डिल्लीबजार</option>
+                    <option value="चाबहिल">चाबहिल</option>
+                    <option value="कलङ्की">कलङ्की</option>
+                    <option value="मनमैजु">मनमैजु</option>
+                    <option value="टोखा">टोखा</option>
+                    <option value="साँखु">साँखु</option>
+                    <option value="लगनखेल">लगनखेल</option>
+                    <option value="गोटीखेल">गोटीखेल</option>
+                    <option value="भक्तपुर">भक्तपुर</option>
+                    <option value="ललितपुर">ललितपुर</option>
+                    <!-- Province 1 (Koshi) -->
+                    <option value="विराटनगर">विराटनगर</option>
+                    <option value="धरान">धरान</option>
+                    <option value="इटहरी">इटहरी</option>
+                    <option value="दमक">दमक</option>
+                    <option value="भद्रपुर">भद्रपुर</option>
+                    <option value="इलाम">इलाम</option>
+                    <option value="धनकुटा">धनकुटा</option>
+                    <option value="पाँचथर">पाँचथर</option>
+                    <option value="ताप्लेजुङ">ताप्लेजुङ</option>
+                    <option value="संखुवासभा">संखुवासभा</option>
+                    <option value="तेह्रथुम">तेह्रथुम</option>
+                    <option value="भोजपुर">भोजपुर</option>
+                    <option value="सोलुखुम्बु">सोलुखुम्बु</option>
+                    <option value="ओखलढुंगा">ओखलढुंगा</option>
+                    <option value="खोटाङ">खोटाङ</option>
+                    <option value="उदयपुर">उदयपुर</option>
+                    <!-- Madhesh Province -->
+                    <option value="जनकपुरधाम">जनकपुरधाम</option>
+                    <option value="जलेश्वर">जलेश्वर</option>
+                    <option value="बर्दिबास">बर्दिबास</option>
+                    <option value="लहान">लहान</option>
+                    <option value="राजविराज">राजविराज</option>
+                    <option value="सिरहा">सिरहा</option>
+                    <option value="धनुषा">धनुषा</option>
+                    <option value="महोत्तरी">महोत्तरी</option>
+                    <option value="सर्लाही">सर्लाही</option>
+                    <option value="रौतहट">रौतहट</option>
+                    <option value="बारा">बारा</option>
+                    <option value="पर्सा">पर्सा</option>
+                    <!-- Bagmati Province -->
+                    <option value="हेटौंडा">हेटौंडा</option>
+                    <option value="धुलिखेल">धुलिखेल</option>
+                    <option value="धादिङ">धादिङ</option>
+                    <option value="नुवाकोट">नुवाकोट</option>
+                    <option value="रसुवा">रसुवा</option>
+                    <option value="सिन्धुपाल्चोक">सिन्धुपाल्चोक</option>
+                    <option value="काभ्रेपलाञ्चोक">काभ्रेपलाञ्चोक</option>
+                    <option value="रामेछाप">रामेछाप</option>
+                    <option value="सिन्धुली">सिन्धुली</option>
+                    <option value="दोलखा">दोलखा</option>
+                    <option value="मकवानपुर">मकवानपुर</option>
+                    <!-- Gandaki Province -->
+                    <option value="पोखरा">पोखरा</option>
+                    <option value="गोरखा">गोरखा</option>
+                    <option value="लमजुङ">लमजुङ</option>
+                    <option value="तनहुँ">तनहुँ</option>
+                    <option value="स्याङ्जा">स्याङ्जा</option>
+                    <option value="कास्की">कास्की</option>
+                    <option value="मनाङ">मनाङ</option>
+                    <option value="मुस्ताङ">मुस्ताङ</option>
+                    <option value="बाग्लुङ">बाग्लुङ</option>
+                    <option value="पर्वत">पर्वत</option>
+                    <option value="म्याग्दी">म्याग्दी</option>
+                    <!-- Lumbini Province -->
+                    <option value="बुटवल">बुटवल</option>
+                    <option value="भैरहवा">भैरहवा</option>
+                    <option value="तौलिहवा">तौलिहवा</option>
+                    <option value="गुल्मी">गुल्मी</option>
+                    <option value="पाल्पा">पाल्पा</option>
+                    <option value="अर्घाखाँची">अर्घाखाँची</option>
+                    <option value="रुपन्देही">रुपन्देही</option>
+                    <option value="कपिलवस्तु">कपिलवस्तु</option>
+                    <option value="नवलपरासी">नवलपरासी</option>
+                    <option value="प्युठान">प्युठान</option>
+                    <option value="रोल्पा">रोल्पा</option>
+                    <option value="रुकुम पूर्व">रुकुम पूर्व</option>
+                    <option value="दाङ">दाङ</option>
+                    <option value="बाँके">बाँके</option>
+                    <option value="बर्दिया">बर्दिया</option>
+                    <!-- Karnali Province -->
+                    <option value="सुर्खेत">सुर्खेत</option>
+                    <option value="दैलेख">दैलेख</option>
+                    <option value="जाजरकोट">जाजरकोट</option>
+                    <option value="डोल्पा">डोल्पा</option>
+                    <option value="जुम्ला">जुम्ला</option>
+                    <option value="कालिकोट">कालिकोट</option>
+                    <option value="मुगु">मुगु</option>
+                    <option value="हुम्ला">हुम्ला</option>
+                    <option value="सल्यान">सल्यान</option>
+                    <option value="रुकुम पश्चिम">रुकुम पश्चिम</option>
+                    <!-- Sudurpashchim Province -->
+                    <option value="धनगढी">धनगढी</option>
+                    <option value="महेन्द्रनगर">महेन्द्रनगर</option>
+                    <option value="दिपायल">दिपायल</option>
+                    <option value="मंगलसेन">मंगलसेन</option>
+                    <option value="कैलाली">कैलाली</option>
+                    <option value="कञ्चनपुर">कञ्चनपुर</option>
+                    <option value="डडेलधुरा">डडेलधुरा</option>
+                    <option value="बैतडी">बैतडी</option>
+                    <option value="दार्चुला">दार्चुला</option>
+                    <option value="बझाङ">बझाङ</option>
+                    <option value="बाजुरा">बाजुरा</option>
+                    <option value="अछाम">अछाम</option>
+                    <option value="डोटी">डोटी</option>
+                    <!-- Terai Survey Offices -->
+                    <option value="वीरगञ्ज">वीरगञ्ज</option>
+                    <option value="भरतपुर">भरतपुर</option>
+                    <option value="नेपालगञ्ज">नेपालगञ्ज</option>
+                </select>
+
+                <label>मिति:</label>
+                <div class="date-picker">
+                    <input type="text" id="date" placeholder="मिति छान्नुहोस्" required readonly>
+                    <div class="calendar-popup" id="calendar">
+                        <div class="calendar-header">
+                            <button type="button" id="prevMonth">◀</button>
+                            <div>
+                                <select id="monthSelect"></select>
+                                <select id="yearSelect"></select>
+                            </div>
+                            <button type="button" id="nextMonth">▶</button>
+                        </div>
+                        <div class="calendar-grid" id="calendarGrid"></div>
+                    </div>
+                </div>
+
+                <label>जग्गाधनीको नाम:</label>
+                <input type="text" id="ownerName" placeholder="जग्गाधनीको नाम" required>
+
+                <label>जग्गाधनीको ठेगाना:</label>
+                <select id="ownerDistrict" style="margin-bottom: 5px;" required>
+                    <option value="">जिल्ला छान्नुहोस्</option>
+                    <option value="काठमाडौं">काठमाडौं</option>
+                    <option value="भक्तपुर">भक्तपुर</option>
+                    <option value="ललितपुर">ललितपुर</option>
+                    <option value="चितवन">चितवन</option>
+                    <option value="मोरङ">मोरङ</option>
+                    <option value="झापा">झापा</option>
+                    <option value="सुनसरी">सुनसरी</option>
+                    <option value="धनुषा">धनुषा</option>
+                    <option value="महोत्तरी">महोत्तरी</option>
+                    <option value="सर्लाही">सर्लाही</option>
+                    <option value="रौतहट">रौतहट</option>
+                    <option value="बारा">बारा</option>
+                    <option value="पर्सा">पर्सा</option>
+                    <option value="रुपन्देही">रुपन्देही</option>
+                    <option value="कपिलवस्तु">कपिलवस्तु</option>
+                    <option value="नवलपरासी">नवलपरासी</option>
+                    <option value="कास्की">कास्की</option>
+                    <option value="स्याङ्जा">स्याङ्जा</option>
+                    <option value="तनहुँ">तनहुँ</option>
+                    <option value="गोरखा">गोरखा</option>
+                    <option value="लमजुङ">लमजुङ</option>
+                    <option value="मनाङ">मनाङ</option>
+                    <option value="मुस्ताङ">मुस्ताङ</option>
+                    <option value="बाग्लुङ">बाग्लुङ</option>
+                    <option value="पर्वत">पर्वत</option>
+                    <option value="म्याग्दी">म्याग्दी</option>
+                    <option value="गुल्मी">गुल्मी</option>
+                    <option value="पाल्पा">पाल्पा</option>
+                    <option value="अर्घाखाँची">अर्घाखाँची</option>
+                    <option value="प्युठान">प्युठान</option>
+                    <option value="रोल्पा">रोल्पा</option>
+                    <option value="रुकुम पूर्व">रुकुम पूर्व</option>
+                    <option value="रुकुम पश्चिम">रुकुम पश्चिम</option>
+                    <option value="सल्यान">सल्यान</option>
+                    <option value="दाङ">दाङ</option>
+                    <option value="बाँके">बाँके</option>
+                    <option value="बर्दिया">बर्दिया</option>
+                    <option value="सुर्खेत">सुर्खेत</option>
+                    <option value="दैलेख">दैलेख</option>
+                    <option value="जाजरकोट">जाजरकोट</option>
+                    <option value="डोल्पा">डोल्पा</option>
+                    <option value="जुम्ला">जुम्ला</option>
+                    <option value="कालिकोट">कालिकोट</option>
+                    <option value="मुगु">मुगु</option>
+                    <option value="हुम्ला">हुम्ला</option>
+                    <option value="बझाङ">बझाङ</option>
+                    <option value="बाजुरा">बाजुरा</option>
+                    <option value="अछाम">अछाम</option>
+                    <option value="डोटी">डोटी</option>
+                    <option value="कैलाली">कैलाली</option>
+                    <option value="कञ्चनपुर">कञ्चनपुर</option>
+                    <option value="डडेलधुरा">डडेलधुरा</option>
+                    <option value="बैतडी">बैतडी</option>
+                    <option value="दार्चुला">दार्चुला</option>
+                    <option value="धनकुटा">धनकुटा</option>
+                    <option value="इलाम">इलाम</option>
+                    <option value="पाँचथर">पाँचथर</option>
+                    <option value="ताप्लेजुङ">ताप्लेजुङ</option>
+                    <option value="संखुवासभा">संखुवासभा</option>
+                    <option value="तेह्रथुम">तेह्रथुम</option>
+                    <option value="भोजपुर">भोजपुर</option>
+                    <option value="सोलुखुम्बु">सोलुखुम्बु</option>
+                    <option value="ओखलढुंगा">ओखलढुंगा</option>
+                    <option value="खोटाङ">खोटाङ</option>
+                    <option value="उदयपुर">उदयपुर</option>
+                    <option value="सप्तरी">सप्तरी</option>
+                    <option value="सिराहा">सिराहा</option>
+                    <option value="धादिङ">धादिङ</option>
+                    <option value="नुवाकोट">नुवाकोट</option>
+                    <option value="रसुवा">रसुवा</option>
+                    <option value="सिन्धुपाल्चोक">सिन्धुपाल्चोक</option>
+                    <option value="काभ्रेपलाञ्चोक">काभ्रेपलाञ्चोक</option>
+                    <option value="रामेछाप">रामेछाप</option>
+                    <option value="सिन्धुली">सिन्धुली</option>
+                    <option value="दोलखा">दोलखा</option>
+                    <option value="मकवानपुर">मकवानपुर</option>
+                </select>
+                <select id="ownerLocation" style="margin-bottom: 5px;" required>
+                    <option value="">न.पा./गा.पा. छान्नुहोस्</option>
+                    <option value="काठमाडौं महानगरपालिका">काठमाडौं महानगरपालिका</option>
+                    <option value="भक्तपुर नगरपालिका">भक्तपुर नगरपालिका</option>
+                    <option value="ललितपुर महानगरपालिका">ललितपुर महानगरपालिका</option>
+                    <option value="पोखरा महानगरपालिका">पोखरा महानगरपालिका</option>
+                    <option value="विराटनगर महानगरपालिका">विराटनगर महानगरपालिका</option>
+                    <option value="भरतपुर महानगरपालिका">भरतपुर महानगरपालिका</option>
+                    <option value="बुटवल उपमहानगरपालिका">बुटवल उपमहानगरपालिका</option>
+                    <option value="धरान उपमहानगरपालिका">धरान उपमहानगरपालिका</option>
+                    <option value="हेटौंडा उपमहानगरपालिका">हेटौंडा उपमहानगरपालिका</option>
+                    <option value="नेपालगञ्ज उपमहानगरपालिका">नेपालगञ्ज उपमहानगरपालिका</option>
+                    <option value="जनकपुरधाम उपमहानगरपालिका">जनकपुरधाम उपमहानगरपालिका</option>
+                    <option value="वीरगञ्ज महानगरपालिका">वीरगञ्ज महानगरपालिका</option>
+                    <option value="धनगढी उपमहानगरपालिका">धनगढी उपमहानगरपालिका</option>
+                    <option value="इटहरी उपमहानगरपालिका">इटहरी उपमहानगरपालिका</option>
+                    <option value="मध्यपुर थिमी नगरपालिका">मध्यपुर थिमी नगरपालिका</option>
+                    <option value="गोदावरी नगरपालिका">गोदावरी नगरपालिका</option>
+                    <option value="महालक्ष्मी नगरपालिका">महालक्ष्मी नगरपालिका</option>
+                    <option value="कोटेश्वर नगरपालिका">कोटेश्वर नगरपालिका</option>
+                </select>
+                <input type="text" id="ownerWard" placeholder="वडा नं." required>
+
+                <label>जग्गाको विवरण:</label>
+                <select id="landDistrict" style="margin-bottom: 5px;" required>
+                    <option value="">जिल्ला छान्नुहोस्</option>
+                    <option value="काठमाडौं">काठमाडौं</option>
+                    <option value="भक्तपुर">भक्तपुर</option>
+                    <option value="ललितपुर">ललितपुर</option>
+                    <option value="चितवन">चितवन</option>
+                    <option value="मोरङ">मोरङ</option>
+                    <option value="झापा">झापा</option>
+                    <option value="सुनसरी">सुनसरी</option>
+                    <option value="धनुषा">धनुषा</option>
+                    <option value="महोत्तरी">महोत्तरी</option>
+                    <option value="सर्लाही">सर्लाही</option>
+                    <option value="रौतहट">रौतहट</option>
+                    <option value="बारा">बारा</option>
+                    <option value="पर्सा">पर्सा</option>
+                    <option value="रुपन्देही">रुपन्देही</option>
+                    <option value="कपिलवस्तु">कपिलवस्तु</option>
+                    <option value="नवलपरासी">नवलपरासी</option>
+                    <option value="कास्की">कास्की</option>
+                    <option value="स्याङ्जा">स्याङ्जा</option>
+                    <option value="तनहुँ">तनहुँ</option>
+                    <option value="गोरखा">गोरखा</option>
+                    <option value="लमजुङ">लमजुङ</option>
+                    <option value="मनाङ">मनाङ</option>
+                    <option value="मुस्ताङ">मुस्ताङ</option>
+                    <option value="बाग्लुङ">बाग्लुङ</option>
+                    <option value="पर्वत">पर्वत</option>
+                    <option value="म्याग्दी">म्याग्दी</option>
+                    <option value="गुल्मी">गुल्मी</option>
+                    <option value="पाल्पा">पाल्पा</option>
+                    <option value="अर्घाखाँची">अर्घाखाँची</option>
+                    <option value="प्युठान">प्युठान</option>
+                    <option value="रोल्पा">रोल्पा</option>
+                    <option value="रुकुम पूर्व">रुकुम पूर्व</option>
+                    <option value="रुकुम पश्चिम">रुकुम पश्चिम</option>
+                    <option value="सल्यान">सल्यान</option>
+                    <option value="दाङ">दाङ</option>
+                    <option value="बाँके">बाँके</option>
+                    <option value="बर्दिया">बर्दिया</option>
+                    <option value="सुर्खेत">सुर्खेत</option>
+                    <option value="दैलेख">दैलेख</option>
+                    <option value="जाजरकोट">जाजरकोट</option>
+                    <option value="डोल्पा">डोल्पा</option>
+                    <option value="जुम्ला">जुम्ला</option>
+                    <option value="कालिकोट">कालिकोट</option>
+                    <option value="मुगु">मुगु</option>
+                    <option value="हुम्ला">हुम्ला</option>
+                    <option value="बझाङ">बझाङ</option>
+                    <option value="बाजुरा">बाजुरा</option>
+                    <option value="अछाम">अछाम</option>
+                    <option value="डोटी">डोटी</option>
+                    <option value="कैलाली">कैलाली</option>
+                    <option value="कञ्चनपुर">कञ्चनपुर</option>
+                    <option value="डडेलधुरा">डडेलधुरा</option>
+                    <option value="बैतडी">बैतडी</option>
+                    <option value="दार्चुला">दार्चुला</option>
+                    <option value="धनकुटा">धनकुटा</option>
+                    <option value="इलाम">इलाम</option>
+                    <option value="पाँचथर">पाँचथर</option>
+                    <option value="ताप्लेजुङ">ताप्लेजुङ</option>
+                    <option value="संखुवासभा">संखुवासभा</option>
+                    <option value="तेह्रथुम">तेह्रथुम</option>
+                    <option value="भोजपुर">भोजपुर</option>
+                    <option value="सोलुखुम्बु">सोलुखुम्बु</option>
+                    <option value="ओखलढुंगा">ओखलढुंगा</option>
+                    <option value="खोटाङ">खोटाङ</option>
+                    <option value="उदयपुर">उदयपुर</option>
+                    <option value="सप्तरी">सप्तरी</option>
+                    <option value="सिराहा">सिराहा</option>
+                    <option value="धादिङ">धादिङ</option>
+                    <option value="नुवाकोट">नुवाकोट</option>
+                    <option value="रसुवा">रसुवा</option>
+                    <option value="सिन्धुपाल्चोक">सिन्धुपाल्चोक</option>
+                    <option value="काभ्रेपलाञ्चोक">काभ्रेपलाञ्चोक</option>
+                    <option value="रामेछाप">रामेछाप</option>
+                    <option value="सिन्धुली">सिन्धुली</option>
+                    <option value="दोलखा">दोलखा</option>
+                    <option value="मकवानपुर">मकवानपुर</option>
+                </select>
+                <select id="landLocation" style="margin-bottom: 5px;" required>
+                    <option value="">न.पा./गा.पा. छान्नुहोस्</option>
+                    <option value="काठमाडौं महानगरपालिका">काठमाडौं महानगरपालिका</option>
+                    <option value="भक्तपुर नगरपालिका">भक्तपुर नगरपालिका</option>
+                    <option value="ललितपुर महानगरपालिका">ललितपुर महानगरपालिका</option>
+                    <option value="पोखरा महानगरपालिका">पोखरा महानगरपालिका</option>
+                    <option value="विराटनगर महानगरपालिका">विराटनगर महानगरपालिका</option>
+                    <option value="भरतपुर महानगरपालिका">भरतपुर महानगरपालिका</option>
+                    <option value="बुटवल उपमहानगरपालिका">बुटवल उपमहानगरपालिका</option>
+                    <option value="धरान उपमहानगरपालिका">धरान उपमहानगरपालिका</option>
+                    <option value="हेटौंडा उपमहानगरपालिका">हेटौंडा उपमहानगरपालिका</option>
+                    <option value="नेपालगञ्ज उपमहानगरपालिका">नेपालगञ्ज उपमहानगरपालिका</option>
+                    <option value="जनकपुरधाम उपमहानगरपालिका">जनकपुरधाम उपमहानगरपालिका</option>
+                    <option value="वीरगञ्ज महानगरपालिका">वीरगञ्ज महानगरपालिका</option>
+                    <option value="धनगढी उपमहानगरपालिका">धनगढी उपमहानगरपालिका</option>
+                    <option value="इटहरी उपमहानगरपालिका">इटहरी उपमहानगरपालिका</option>
+                    <option value="मध्यपुर थिमी नगरपालिका">मध्यपुर थिमी नगरपालिका</option>
+                    <option value="गोदावरी नगरपालिका">गोदावरी नगरपालिका</option>
+                    <option value="महालक्ष्मी नगरपालिका">महालक्ष्मी नगरपालिका</option>
+                    <option value="कोटेश्वर नगरपालिका">कोटेश्वर नगरपालिका</option>
+                </select>
+                <input type="text" id="landWard" placeholder="वडा नं./ सिट नं." style="margin-bottom: 5px;" required>
+                <input type="text" id="kittaNo" placeholder="कित्ता नं. ०-०-०-०" style="margin-bottom: 5px;" required>
+                <input type="text" id="area" placeholder="क्षेत्रफल" required>
+
+                <label>प्रतिनिधीको नाम:</label>
+                <select id="staffName" required>
+                    <option value="साप्चुहाङ तुम्वाहाङफे">साप्चुहाङ तुम्वाहाङफे</option>
+                    <option value="अमृता तिम्लसिना">अमृता तिम्लसिना</option>
+                    <option value="कुन्जुम सुब्बा">कुन्जुम सुब्बा</option>
+                    <option value="सुमान कार्की">सुमान कार्की</option>
+                    <option value="उज्वल शाक्य">उज्वल शाक्य</option>
+                    <option value="सबीना ईवारम">सबीना ईवारम</option>
+                    <option value="मिना राई">मिना राई</option>
+                    <option value="निर्माया राई">निर्माया राई</option>
+                    <option value="फुल कुमारी नेम्बाङ">फुल कुमारी नेम्बाङ</option>
+                </select>
+
+                <label>पद:</label>
+                <select id="designation" required>
+                    <option value="सूचना प्रविधी तथा वित्त साहयक">सूचना प्रविधी तथा वित्त साहयक </option>
+                    <option value="क्यासीयर">क्यासीयर</option>
+                    <option value="वित्त तथा प्रशासन अधिकृत">वित्त तथा प्रशासन अधिकृत</option>
+                    <option value="लेखापाल">लेखापाल</option>
+                    <option value="ऋण अधिकृत">ऋण अधिकृत</option>
+                    <option value="बजार प्रतिनिधि">बजार प्रतिनिधि</option>
+                    <option value="कार्यलय साहायक">कार्यलय साहायक</option>
+                    <option value="प्रमुख कार्यकारी अधिकृत">प्रमुख कार्यकारी अधिकृत</option>
+                </select>
+
+                <button type="submit">Generate Letter</button>
+            </form>
+        </div>
+
+        <div id="printLetter" style="flex: 1;">
+            <div id="letterContent"></br></br><br>
+                <p align="right">
+                    मितिः [DATE]<br><br>
+                </p>
+
+                <br>
+                श्रीमान नापी प्रमुख ज्यू,<br>
+                नापी कार्यालय,<BR>
+                [OFFICE]।<br><br>
+
+                <p align="center"><b>विषयः ट्रेस-नापी नक्सा उतार उपलब्ध गराइ दिनु हुन।</b><br></p>
+
+                <p align="justify">
+                    महोदय,<br>
+                    उक्त सम्बन्धमा यस सुयोग्य बचत तथा ऋण सहकारी संस्था लि. ले [OWNER_DISTRICT] जिल्ला [OWNER_LOCATION]
+                    न.पा. वडा नं.[OWNER_WARD]
+                    बस्ने श्री [OWNER_NAME]संग वित्तिय कारोबार गर्नुपर्ने भएकोले उक्त प्रायोजनको लागि निजको नाममा रहेको
+                    देहाय बमोजिम जग्गाको ट्रेस-नापी नक्सा उतार उपलब्ध गराइदिनु हुन अनुरोध छ।<br>
+
+
+                    <br>
+                <table border="1" cellpadding="8" cellspacing="0"
+                    style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">जग्गाधनीको नाम</th>
+                            <th style="text-align: center;">जिल्ला, न.पा., उ.न.पा (साविक)</th>
+                            <th style="text-align: center;">वडा नं./ सि. नं. (साविक)</th>
+                            <th style="text-align: center;">कित्ता नं.</th>
+                            <th style="text-align: center;">क्षेत्रफल / व.मि.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;">[OWNER_NAME]</td>
+                            <td style="text-align: center;">
+                                [LAND_DISTRICT]<br>[LAND_LOCATION]</td>
+                            <td style="text-align: center;">[LAND_WARD]</td>
+                            <td style="text-align: center;">[KITTA_NO]</td>
+                            <td style="text-align: center;">[AREA]</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <p align="left"><b>भवदीय</b><br>
+                <div class="signature-line"></div>
+                <b>[STAFF_NAME]</b><br>
+                <b>[DESIGNATION]</b>
+                </p>
+                <button id="printBtn" onclick="window.print()">Print</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Nepali date conversion data
+        const nepaliMonths = ['बैशाख', 'जेठ', 'असार', 'साउन', 'भदौ', 'असोज', 'कार्तिक', 'मंसिर', 'पुष', 'माघ', 'फाल्गुन', 'चैत'];
+        const nepaliDays = ['आइत', 'सोम', 'मंगल', 'बुध', 'बिहि', 'शुक्र', 'शनि'];
+        const nepaliNumerals = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+
+        // Days in each Nepali month for different years (2081-2085)
+        const nepaliMonthDays = {
+            2081: [31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2082: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2083: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
+            2084: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2085: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31]
+        };
+
+        function toNepaliNumber(num) {
+            return String(num).split('').map(d => nepaliNumerals[parseInt(d)]).join('');
+        }
+
+        // Get current Nepali date (approximate)
+        const today = new Date();
+        let currentNepYear = 2081;
+        let currentNepMonth = 7; // Kartik
+        let currentNepDay = 3;
+
+        let selectedDate = null;
+        const originalLetter = document.getElementById("letterContent").innerHTML;
+
+        // Initialize calendar
+        function initCalendar() {
+            const monthSelect = document.getElementById('monthSelect');
+            const yearSelect = document.getElementById('yearSelect');
+
+            // Populate months
+            nepaliMonths.forEach((month, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx;
+                opt.textContent = month;
+                monthSelect.appendChild(opt);
+            });
+
+            // Populate years
+            for (let y = 2080; y <= 2085; y++) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = toNepaliNumber(y);
+                yearSelect.appendChild(opt);
+            }
+
+            monthSelect.value = currentNepMonth;
+            yearSelect.value = currentNepYear;
+
+            renderCalendar(currentNepYear, currentNepMonth);
+        }
+
+        function renderCalendar(year, month) {
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            // Add day headers
+            nepaliDays.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+
+            // Get days in month
+            const daysInMonth = nepaliMonthDays[year] ? nepaliMonthDays[year][month] : 30;
+
+            // Add empty cells for alignment (simplified - starts on Sunday)
+            const startDay = (year + month) % 7;
+            for (let i = 0; i < startDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'calendar-day disabled';
+                grid.appendChild(empty);
+            }
+
+            // Add day cells
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.textContent = toNepaliNumber(day);
+                dayCell.onclick = () => selectDate(year, month, day);
+
+                if (selectedDate && selectedDate.year === year && selectedDate.month === month && selectedDate.day === day) {
+                    dayCell.classList.add('selected');
+                }
+
+                grid.appendChild(dayCell);
+            }
+        }
+
+        function selectDate(year, month, day) {
+            selectedDate = { year, month, day };
+            const dateStr = `${toNepaliNumber(year)}-${toNepaliNumber(month + 1).padStart(2, '०')}-${toNepaliNumber(day).padStart(2, '०')}`;
+            document.getElementById('date').value = dateStr;
+            document.getElementById('calendar').classList.remove('active');
+            renderCalendar(year, month);
+        }
+
+        // Event listeners
+        document.getElementById('date').onclick = () => {
+            document.getElementById('calendar').classList.toggle('active');
+        };
+
+        document.getElementById('prevMonth').onclick = () => {
+            currentNepMonth--;
+            if (currentNepMonth < 0) {
+                currentNepMonth = 11;
+                currentNepYear--;
+            }
+            document.getElementById('monthSelect').value = currentNepMonth;
+            document.getElementById('yearSelect').value = currentNepYear;
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('nextMonth').onclick = () => {
+            currentNepMonth++;
+            if (currentNepMonth > 11) {
+                currentNepMonth = 0;
+                currentNepYear++;
+            }
+            document.getElementById('monthSelect').value = currentNepMonth;
+            document.getElementById('yearSelect').value = currentNepYear;
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('monthSelect').onchange = (e) => {
+            currentNepMonth = parseInt(e.target.value);
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('yearSelect').onchange = (e) => {
+            currentNepYear = parseInt(e.target.value);
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        // Close calendar when clicking outside
+        document.addEventListener('click', (e) => {
+            const calendar = document.getElementById('calendar');
+            const dateInput = document.getElementById('date');
+            if (!calendar.contains(e.target) && e.target !== dateInput) {
+                calendar.classList.remove('active');
+            }
+        });
+
+        // Form submission
+        document.getElementById("traceForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const office = document.getElementById("surveyOffice").value;
+            const date = document.getElementById("date").value;
+            const ownerName = document.getElementById("ownerName").value;
+            const ownerDistrict = document.getElementById("ownerDistrict").value;
+            const ownerLocation = document.getElementById("ownerLocation").value;
+            const ownerWard = document.getElementById("ownerWard").value;
+            const landDistrict = document.getElementById("landDistrict").value;
+            const landLocation = document.getElementById("landLocation").value;
+            const landWard = document.getElementById("landWard").value;
+            const kittaNo = document.getElementById("kittaNo").value;
+            const area = document.getElementById("area").value;
+            const staffName = document.getElementById("staffName").value;
+            const designation = document.getElementById("designation").value;
+
+            let letter = originalLetter;
+            letter = letter.replace(/\[OFFICE\]/g, office)
+                .replace(/\[DATE\]/g, date)
+                .replace(/\[OWNER_NAME\]/g, ownerName)
+                .replace(/\[OWNER_DISTRICT\]/g, ownerDistrict)
+                .replace(/\[OWNER_LOCATION\]/g, ownerLocation)
+                .replace(/\[OWNER_WARD\]/g, ownerWard)
+                .replace(/\[LAND_DISTRICT\]/g, landDistrict)
+                .replace(/\[LAND_LOCATION\]/g, landLocation)
+                .replace(/\[LAND_WARD\]/g, landWard)
+                .replace(/\[KITTA_NO\]/g, kittaNo)
+                .replace(/\[AREA\]/g, area)
+                .replace(/\[STAFF_NAME\]/g, staffName)
+                .replace(/\[DESIGNATION\]/g, designation);
+
+            document.getElementById("letterContent").innerHTML = letter;
+        });
+
+        // Initialize
+        initCalendar();
+    </script>
+
+</body>
+
+</html>
