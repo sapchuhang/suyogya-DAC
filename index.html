@@ -30,7 +30,28 @@
             background-color: rgb(0, 38, 23);
             color: #fff;
             padding: 1rem;
+            
         }
+@-webkit-keyframes navbar {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(100px);
+            transform: translateX(100px);
+  }
+}
+@keyframes navbar {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(100px);
+            transform: translateX(100px);
+  }
+}
 
         .navbar a.navbar-brand {
             color: #fff;
@@ -39,6 +60,8 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            -webkit-animation: navbar 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: navbar 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
         }
 
         .navbar-brand img {
