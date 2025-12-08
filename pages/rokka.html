@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trace Map Application – A4 Print</title>
-    <link rel="icon" type="image/png" sizes="32x28" href="./assets/favicon.png">
+    <title>रोक्का निवेदन</title>
+    <link rel="icon" type="image/png" sizes="32x28" href="../assets/favicon.png">
 
     <style>
         body {
@@ -100,7 +100,7 @@
         /* Letter formatting */
         #printLetter {
             line-height: 1.8;
-            font-size: 14px;
+            font-size: 12px;
             background: white;
             padding: 0;
             margin: 0;
@@ -210,16 +210,16 @@
         background-color: #004E17;
         color: white;
         padding: 10px;
-        text-align: center;">नक्सा ट्रेस उतार निवेदन</h2>
+        text-align: center;">रोक्का निवेदन</h2>
 
     <div class="container">
 
         <div class="form-container">
             <form id="traceForm">
 
-                <label>नापी कार्यालय:</label>
+                <label>मालपोत कार्यालय:</label>
                 <select id="surveyOffice" required>
-                    <option value="">नापी कार्यालय छान्नुहोस्</option>
+                    <option value="">मालपोत कार्यालय छान्नुहोस्</option>
                     <!-- Kathmandu Valley -->
                     <option value="डिल्लीबजार">डिल्लीबजार</option>
                     <option value="चाबहिल">चाबहिल</option>
@@ -595,21 +595,29 @@
                 </p>
 
                 <br>
-                श्रीमान नापी प्रमुख ज्यू,<br>
-                नापी कार्यालय,<BR>
-                [OFFICE]।<br><br>
+                श्रीमान् मालपोत अधिकृतज्यू,<br>
+                मालपोत कार्यालय,<BR>
+                रोक्का फाँट, [OFFICE]।<br><br>
 
-                <p align="center"><b>विषयः ट्रेस-नापी नक्सा उतार उपलब्ध गराइ दिनु हुन।</b><br></p>
+                <p align="center"><b>विषयः अचल सम्पत्ति दृष्टि बन्धक रोक्का गर्ने।</b><br></p>
 
                 <p align="justify">
                     महोदय,<br>
-                    उक्त सम्बन्धमा यस सुयोग्य बचत तथा ऋण सहकारी संस्था लि. ले [OWNER_DISTRICT] जिल्ला [OWNER_LOCATION]
+                    उक्त सम्बन्धमा [OWNER_DISTRICT] जिल्ला [OWNER_LOCATION]
                     न.पा. वडा नं.[OWNER_WARD]
-                    बस्ने श्री [OWNER_NAME]संग वित्तिय कारोबार गर्नुपर्ने भएकोले उक्त प्रायोजनको लागि निजको नाममा रहेको
-                    देहाय बमोजिम जग्गाको ट्रेस-नापी नक्सा उतार उपलब्ध गराइदिनु हुन अनुरोध छ।<br>
-
-
-                    <br>
+                    बस्ने [OWNER_NAME]ले यस सुयोग्य बचत तथा ऋण सहकारी संस्थाबाट रु (अक्षेरमा रु ) कर्जा
+                    लिन तपसिलको घर÷जग्गा धितो सुरक्षण लेखि दिनुभएकोले यस संस्थाको फुकुवा पत्रसाथ त्यस कार्यालयबाट
+                    प्राप्त सक्कल रोक्का पत्रमा दरपिठ गरी पठाएको पत्र प्राप्त नभएसम्म कोही कसैलाई वेचविखन धितो वा
+                    नामसारी गर्न नपाउने गरी दृ.ब. रोक्का राखी निस्सा यस संस्थालाई पठाई दिनु हुन अनुरोधछं । साथै सहकारी
+                    सम्बन्धी केहि नेपाल ऐनलाई संसोधन गर्ने अध्यादेश २०८१ बमोजिम दफा ५२(२) व्यक्तिगत बचत तथा ऋण सीमा
+                    सम्बन्धमा उमा दाहाललाई प्रवाह हुने रकम यस सहकारीको प्राथमिक पुँजि कोषको १५% प्रतिशत सीमा भित्र रहेको
+                    व्यहोरा अनुरोध गर्दछु।<br>
+                    उक्त कार्य गर्न यस संस्थाको तर्फबाट श्री <b>[STAFF_NAME]</b> ना.प्र.प. नं. ०८–०१–७३–००२९२,
+                    तेह्रथुम, लाई खटाई पठाईएको व्यहोरा अनुरोध छ । निजको दस्तखत यस प्रकारको छ ।
+                </p>
+                <div class="signature-line"></div>
+                <b>दस्तखत</b><br>
+                <br>
                 <table border="1" cellpadding="8" cellspacing="0"
                     style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
                     <thead>
