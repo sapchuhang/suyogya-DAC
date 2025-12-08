@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ne">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ऋण निवेदन</title>
+    <style>
+        body {
+            font-family: "Stack Sans Notch", Arial, sans-serif;
+            margin: 20px;
+            background: #ffffff;
+        }
+
+        .form-container {
+            background: #e4e4e4;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            color: #004E17;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-top: 15px;
+            border: none;
+            background: #004E17;
+            color: white;
+            font-size: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #28a745;
+        }
+
+        /* A4 Print Settings */
+        @page {
+            size: A4;
+            margin: 20mm 25mm;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+
+            body * {
+                visibility: hidden !important;
+            }
+
+            #printLetter,
+            #printLetter * {
+                visibility: visible !important;
+            }
+
+            #printLetter {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .form-container,
+            h2,
+            #printBtn {
+                display: none !important;
+            }
+
+            table {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Letter formatting */
+        #printLetter {
+            line-height: 1.8;
+            font-size: 12px;
+            background: white;
+            padding: 0;
+            margin: 0;
+        }
+
+        .signature-line {
+            margin-top: 60px;
+            width: 150px;
+            border-top: 2px dotted #000;
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+
+        /* Nepali Date Picker Styling */
+        .date-picker {
+            position: relative;
+        }
+
+        .calendar-popup {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 2px solid #004E17;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .calendar-popup.active {
+            display: block;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .calendar-header button {
+            margin: 0;
+            padding: 5px 10px;
+            font-size: 18px;
+        }
+
+        .calendar-header select {
+            width: auto;
+            padding: 5px;
+            margin: 0 5px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .calendar-day {
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .calendar-day:hover {
+            background: #e8f5e9;
+        }
+
+        .calendar-day.selected {
+            background: #004E17;
+            color: white;
+        }
+
+        .calendar-day.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .day-header {
+            font-weight: bold;
+            padding: 5px;
+            text-align: center;
+            color: #004E17;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2 style="background-color: #004E17; color: white; padding: 10px; text-align: center;">ऋण निवेदन</h2>
+
+    <div class="container">
+
+        <div class="form-container">
+            <form id="loanForm">
+
+                <label>मिति:</label>
+                <div class="date-picker">
+                    <input type="text" id="date" placeholder="मिति छान्नुहोस्" required readonly>
+                    <div class="calendar-popup" id="calendar">
+                        <div class="calendar-header">
+                            <button type="button" id="prevMonth">◀</button>
+                            <div>
+                                <select id="monthSelect"></select>
+                                <select id="yearSelect"></select>
+                            </div>
+                            <button type="button" id="nextMonth">▶</button>
+                        </div>
+                        <div class="calendar-grid" id="calendarGrid"></div>
+                    </div>
+                </div>
+
+                <label>निवेदकको नाम:</label>
+                <input type="text" id="applicantName" placeholder="पुरा नाम" required>
+
+                <label>बाबु/आमा/श्रीमान्‌को नाम:</label>
+                <input type="text" id="parentName" placeholder="नाम" required>
+
+                <label>स्थायी ठेगाना:</label>
+                <select id="permanentDistrict" style="margin-bottom: 5px;" required>
+                    <option value="">जिल्ला छान्नुहोस्</option>
+                    <option value="काठमाडौं">काठमाडौं</option>
+                    <option value="भक्तपुर">भक्तपुर</option>
+                    <option value="ललितपुर">ललितपुर</option>
+                    <option value="चितवन">चितवन</option>
+                    <option value="मोरङ">मोरङ</option>
+                    <option value="झापा">झापा</option>
+                    <option value="सुनसरी">सुनसरी</option>
+                </select>
+                <select id="permanentMunicipality" style="margin-bottom: 5px;" required>
+                    <option value="">न.पा./गा.पा. छान्नुहोस्</option>
+                    <option value="काठमाडौं महानगरपालिका">काठमाडौं महानगरपालिका</option>
+                    <option value="भक्तपुर नगरपालिका">भक्तपुर नगरपालिका</option>
+                    <option value="ललितपुर महानगरपालिका">ललितपुर महानगरपालिका</option>
+                </select>
+                <input type="text" id="permanentWard" placeholder="वडा नं." required>
+
+                <label>अस्थायी ठेगाना:</label>
+                <select id="temporaryDistrict" style="margin-bottom: 5px;" required>
+                    <option value="">जिल्ला छान्नुहोस्</option>
+                    <option value="काठमाडौं">काठमाडौं</option>
+                    <option value="भक्तपुर">भक्तपुर</option>
+                    <option value="ललितपुर">ललितपुर</option>
+                </select>
+                <select id="temporaryMunicipality" style="margin-bottom: 5px;" required>
+                    <option value="">न.पा./गा.पा. छान्नुहोस्</option>
+                    <option value="काठमाडौं महानगरपालिका">काठमाडौं महानगरपालिका</option>
+                    <option value="भक्तपुर नगरपालिका">भक्तपुर नगरपालिका</option>
+                    <option value="ललितपुर महानगरपालिका">ललितपुर महानगरपालिका</option>
+                </select>
+                <input type="text" id="temporaryWard" placeholder="वडा नं." required>
+
+                <label>सम्पर्क नम्बर:</label>
+                <input type="tel" id="contactNumber" placeholder="मोबाइल नम्बर" required>
+
+                <label>ऋणको प्रकार:</label>
+                <select id="loanType" required>
+                    <option value="">ऋण प्रकार छान्नुहोस्</option>
+                    <option value="व्यवसायिक ऋण">व्यवसायिक ऋण</option>
+                    <option value="गृह ऋण">गृह ऋण</option>
+                    <option value="शिक्षा ऋण">शिक्षा ऋण</option>
+                    <option value="कृषि ऋण">कृषि ऋण</option>
+                    <option value="साधारण ऋण">साधारण ऋण</option>
+                    <option value="जग्गा ऋण">जग्गा ऋण</option>
+                </select>
+
+                <label>माग गरिएको ऋण रकम (रु.):</label>
+                <input type="number" id="loanAmount" placeholder="रकम रुपैयाँमा" required>
+
+                <label>ऋण लिनुको उद्देश्य:</label>
+                <textarea id="loanPurpose" placeholder="ऋण लिनुको कारण विस्तृतमा लेख्नुहोस्" required></textarea>
+
+                <label>तिर्न सक्ने अवधि (महिनामा):</label>
+                <input type="number" id="loanDuration" placeholder="महिना" required>
+
+                <label>धितो राख्ने सम्पत्तिको विवरण:</label>
+                <textarea id="collateralDetails" placeholder="जग्गा/घर/अन्य सम्पत्तिको विवरण" required></textarea>
+
+                <button type="submit">निवेदन तयार गर्नुहोस्</button>
+            </form>
+        </div>
+
+        <div id="printLetter" style="flex: 1;">
+            <div id="letterContent">
+                <br><br><br>
+                <p align="right">मितिः [DATE]<br><br></p>
+
+                <br>
+                श्रीमान् प्रमुख कार्यकारी अधिकृतज्यू,<br>
+                सुयोग्य बचत तथा ऋण सहकारी संस्था लिमिटेड,<br>
+                पाटन, ललितपुर।<br><br>
+
+                <p align="center"><b>विषयः ऋणको लागि निवेदन।</b><br></p>
+
+                <p align="justify">
+                    महोदय,<br><br>
+                    म [APPLICANT_NAME] [PARENT_NAME]को छोरा/छोरी/श्रीमती स्थायी ठेगाना [PERMANENT_DISTRICT] जिल्ला 
+                    [PERMANENT_MUNICIPALITY] वडा नं. [PERMANENT_WARD] र हाल [TEMPORARY_DISTRICT] जिल्ला 
+                    [TEMPORARY_MUNICIPALITY] वडा नं. [TEMPORARY_WARD] मा बसोबास गर्दै आएको व्यक्ति हुँ।<br><br>
+                    
+                    म यस सहकारी संस्थाको सदस्य भई आफ्नो [LOAN_PURPOSE] को लागि [LOAN_TYPE] अन्तर्गत 
+                    रु. [LOAN_AMOUNT] (अक्षरेपी रुपैयाँ [LOAN_AMOUNT_WORDS]) ऋण लिन चाहन्छु। 
+                    उक्त ऋण म [LOAN_DURATION] महिनाभित्र ब्याजसहित तिर्न सक्षम छु।<br><br>
+                    
+                    ऋणको सुरक्षाको लागि मसँग [COLLATERAL_DETAILS] धितो राख्न तयार छु। 
+                    यसबाहेक म यस सहकारी संस्थाको नियम र सर्तहरु पालना गर्न प्रतिबद्ध छु।<br><br>
+                    
+                    तसर्थ माथि उल्लेखित सर्त र शर्तहरुमा मलाई ऋण उपलब्ध गराइदिनुहुन अनुरोध गर्दछु।<br><br>
+                    
+                    धन्यवाद!
+                </p>
+
+                <br><br>
+                <p align="left">
+                    <b>निवेदक</b><br>
+                    <div class="signature-line"></div>
+                    नाम: [APPLICANT_NAME]<br>
+                    सम्पर्क नं.: [CONTACT_NUMBER]<br>
+                    ना.प्र.प. नं.: ............................
+                </p>
+
+                <button id="printBtn" onclick="window.print()">Print</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Nepali date conversion data
+        const nepaliMonths = ['बैशाख', 'जेठ', 'असार', 'साउन', 'भदौ', 'असोज', 'कार्तिक', 'मंसिर', 'पुष', 'माघ', 'फाल्गुन', 'चैत'];
+        const nepaliDays = ['आइत', 'सोम', 'मंगल', 'बुध', 'बिहि', 'शुक्र', 'शनि'];
+        const nepaliNumerals = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
+
+        const nepaliMonthDays = {
+            2081: [31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+            2082: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2083: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
+            2084: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+            2085: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31]
+        };
+
+        function toNepaliNumber(num) {
+            return String(num).split('').map(d => nepaliNumerals[parseInt(d)]).join('');
+        }
+
+        function convertNumberToWords(num) {
+            const ones = ['', 'एक', 'दुई', 'तीन', 'चार', 'पाँच', 'छ', 'सात', 'आठ', 'नौ'];
+            const tens = ['', '', 'बीस', 'तीस', 'चालीस', 'पचास', 'साठी', 'सत्तरी', 'असी', 'नब्बे'];
+            const teens = ['दश', 'एघार', 'बाह्र', 'तेह्र', 'चौध', 'पन्ध्र', 'सोह्र', 'सत्र', 'अठार', 'उन्नाइस'];
+            
+            if (num === 0) return 'शून्य';
+            if (num < 10) return ones[num];
+            if (num >= 10 && num < 20) return teens[num - 10];
+            if (num >= 20 && num < 100) {
+                return tens[Math.floor(num / 10)] + (num % 10 !== 0 ? ' ' + ones[num % 10] : '');
+            }
+            if (num >= 100 && num < 1000) {
+                return ones[Math.floor(num / 100)] + ' सय' + (num % 100 !== 0 ? ' ' + convertNumberToWords(num % 100) : '');
+            }
+            if (num >= 1000 && num < 100000) {
+                return convertNumberToWords(Math.floor(num / 1000)) + ' हजार' + (num % 1000 !== 0 ? ' ' + convertNumberToWords(num % 1000) : '');
+            }
+            if (num >= 100000 && num < 10000000) {
+                return convertNumberToWords(Math.floor(num / 100000)) + ' लाख' + (num % 100000 !== 0 ? ' ' + convertNumberToWords(num % 100000) : '');
+            }
+            return 'धेरै ठूलो संख्या';
+        }
+
+        let currentNepYear = 2081;
+        let currentNepMonth = 7;
+        let selectedDate = null;
+        const originalLetter = document.getElementById("letterContent").innerHTML;
+
+        function initCalendar() {
+            const monthSelect = document.getElementById('monthSelect');
+            const yearSelect = document.getElementById('yearSelect');
+
+            nepaliMonths.forEach((month, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx;
+                opt.textContent = month;
+                monthSelect.appendChild(opt);
+            });
+
+            for (let y = 2080; y <= 2085; y++) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = toNepaliNumber(y);
+                yearSelect.appendChild(opt);
+            }
+
+            monthSelect.value = currentNepMonth;
+            yearSelect.value = currentNepYear;
+
+            renderCalendar(currentNepYear, currentNepMonth);
+        }
+
+        function renderCalendar(year, month) {
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            nepaliDays.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+
+            const daysInMonth = nepaliMonthDays[year] ? nepaliMonthDays[year][month] : 30;
+            const startDay = (year + month) % 7;
+            
+            for (let i = 0; i < startDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'calendar-day disabled';
+                grid.appendChild(empty);
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.textContent = toNepaliNumber(day);
+                dayCell.onclick = () => selectDate(year, month, day);
+
+                if (selectedDate && selectedDate.year === year && selectedDate.month === month && selectedDate.day === day) {
+                    dayCell.classList.add('selected');
+                }
+
+                grid.appendChild(dayCell);
+            }
+        }
+
+        function selectDate(year, month, day) {
+            selectedDate = { year, month, day };
+            const dateStr = `${toNepaliNumber(year)}-${toNepaliNumber(month + 1).padStart(2, '०')}-${toNepaliNumber(day).padStart(2, '०')}`;
+            document.getElementById('date').value = dateStr;
+            document.getElementById('calendar').classList.remove('active');
+            renderCalendar(year, month);
+        }
+
+        document.getElementById('date').onclick = () => {
+            document.getElementById('calendar').classList.toggle('active');
+        };
+
+        document.getElementById('prevMonth').onclick = () => {
+            currentNepMonth--;
+            if (currentNepMonth < 0) {
+                currentNepMonth = 11;
+                currentNepYear--;
+            }
+            document.getElementById('monthSelect').value = currentNepMonth;
+            document.getElementById('yearSelect').value = currentNepYear;
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('nextMonth').onclick = () => {
+            currentNepMonth++;
+            if (currentNepMonth > 11) {
+                currentNepMonth = 0;
+                currentNepYear++;
+            }
+            document.getElementById('monthSelect').value = currentNepMonth;
+            document.getElementById('yearSelect').value = currentNepYear;
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('monthSelect').onchange = (e) => {
+            currentNepMonth = parseInt(e.target.value);
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        document.getElementById('yearSelect').onchange = (e) => {
+            currentNepYear = parseInt(e.target.value);
+            renderCalendar(currentNepYear, currentNepMonth);
+        };
+
+        document.addEventListener('click', (e) => {
+            const calendar = document.getElementById('calendar');
+            const dateInput = document.getElementById('date');
+            if (!calendar.contains(e.target) && e.target !== dateInput) {
+                calendar.classList.remove('active');
+            }
+        });
+
+        document.getElementById("loanForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const date = document.getElementById("date").value;
+            const applicantName = document.getElementById("applicantName").value;
+            const parentName = document.getElementById("parentName").value;
+            const permanentDistrict = document.getElementById("permanentDistrict").value;
+            const permanentMunicipality = document.getElementById("permanentMunicipality").value;
+            const permanentWard = document.getElementById("permanentWard").value;
+            const temporaryDistrict = document.getElementById("temporaryDistrict").value;
+            const temporaryMunicipality = document.getElementById("temporaryMunicipality").value;
+            const temporaryWard = document.getElementById("temporaryWard").value;
+            const contactNumber = document.getElementById("contactNumber").value;
+            const loanType = document.getElementById("loanType").value;
+            const loanAmount = document.getElementById("loanAmount").value;
+            const loanAmountWords = convertNumberToWords(parseInt(loanAmount));
+            const loanPurpose = document.getElementById("loanPurpose").value;
+            const loanDuration = document.getElementById("loanDuration").value;
+            const collateralDetails = document.getElementById("collateralDetails").value;
+
+            let letter = originalLetter;
+            letter = letter.replace(/\[DATE\]/g, date)
+                .replace(/\[APPLICANT_NAME\]/g, applicantName)
+                .replace(/\[PARENT_NAME\]/g, parentName)
+                .replace(/\[PERMANENT_DISTRICT\]/g, permanentDistrict)
+                .replace(/\[PERMANENT_MUNICIPALITY\]/g, permanentMunicipality)
+                .replace(/\[PERMANENT_WARD\]/g, permanentWard)
+                .replace(/\[TEMPORARY_DISTRICT\]/g, temporaryDistrict)
+                .replace(/\[TEMPORARY_MUNICIPALITY\]/g, temporaryMunicipality)
+                .replace(/\[TEMPORARY_WARD\]/g, temporaryWard)
+                .replace(/\[CONTACT_NUMBER\]/g, contactNumber)
+                .replace(/\[LOAN_TYPE\]/g, loanType)
+                .replace(/\[LOAN_AMOUNT\]/g, loanAmount)
+                .replace(/\[LOAN_AMOUNT_WORDS\]/g, loanAmountWords)
+                .replace(/\[LOAN_PURPOSE\]/g, loanPurpose)
+                .replace(/\[LOAN_DURATION\]/g, loanDuration)
+                .replace(/\[COLLATERAL_DETAILS\]/g, collateralDetails);
+
+            document.getElementById("letterContent").innerHTML = letter;
+        });
+
+        initCalendar();
+    </script>
+
+</body>
+
+</html>
