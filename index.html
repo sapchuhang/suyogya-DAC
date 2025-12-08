@@ -20,53 +20,90 @@
         /* Global font */
         body {
             font-family: 'Stack Sans Notch', sans-serif;
-            background-color: #f8f9fa;
+            background-color: #f0f2f5;
             margin: 0;
             padding: 0;
         }
 
-        /* Navbar */
-        .navbar {
-            background-color: rgb(0, 38, 23);
-            color: #fff;
-            padding: 1rem;
-            
+        /* Modern Floating Navbar */
+        .navbar-container {
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
-@-webkit-keyframes navbar {
-  0% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  100% {
-    -webkit-transform: translateX(100px);
-            transform: translateX(100px);
-  }
-}
-@keyframes navbar {
-  0% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  100% {
-    -webkit-transform: translateX(100px);
-            transform: translateX(100px);
-  }
-}
+
+        .navbar {
+            background: rgba(0, 60, 35, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 0.8rem 1.5rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar:hover {
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
 
         .navbar a.navbar-brand {
             color: #fff;
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             gap: 1rem;
-            -webkit-animation: navbar 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        animation: navbar 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .navbar-brand img {
             background-color: white;
-            border-radius: 10px;
+            border-radius: 12px;
+            padding: 4px;
+            height: 60px;
+            width: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-logout:hover {
+            background: #ffffff;
+            color: #004E17;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .navbar-container {
+            animation: fadeInDown 0.8s ease-out;
         }
 
         /* Watermark */
@@ -158,13 +195,14 @@
         }
     </style>
 
-    <div class="container">
-        <nav class="navbar" style="background-color: rgb(0, 38, 23);" data-bs-theme="light">
-            <!-- Navbar content -->
+    <div class="container navbar-container">
+        <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand"><img src="./assets/images/heading.png" alt="logo" height="80">WELCOME TO SUYOGYA
-                    DOCUMENT AUTOMATION CENTER (SDAC)</a>
-                <a href="/logout" class="btn btn-outline-light btn-sm fw-bold">Logout</a>
+                <a class="navbar-brand" href="./index.html">
+                    <img src="./assets/images/heading.png" alt="logo">
+                     WELCOME TO SUYOGYA DOCUMENT AUTOMATION CENTER (SDAC)
+                </a>
+                <a href="/logout" class="btn-logout">Logout</a>
             </div>
         </nav>
     </div>
@@ -265,6 +303,22 @@
                         <h5 class="fw-bold text-dark-green">फुक्का</h5>
                         <p>फुक्का निवेदनको लागी यस ट्याबमा प्रवेस गारी धितोको विवरण भरनुहोस।</p>
                         <a href="./pages/fukka.html" class="icon-link">Call to action ></a>
+                    </div>
+
+                </div>
+                 <div class="col-lg-3 col-md-6" id="card">
+                    <div class="feature-item text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg"  height="30" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                            <path
+                                d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z" />
+                            <path
+                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path
+                                d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12" />
+                        </svg>
+                        <h5 class="fw-bold text-dark-green">ऋण निवेदन</h5>
+                        <p>ऋण निवेदनको लागी यस ट्याबमा प्रवेस गारी विवरण भरनुहोस।</p>
+                        <a href="./pages/loan.html" class="icon-link">Call to action ></a>
                     </div>
 
                 </div>
