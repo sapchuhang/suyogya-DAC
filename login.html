@@ -10,93 +10,204 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
-    <link href="./css/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         body {
-            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #025b6c 0%, #eeeeee 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            margin: 0;
             overflow: hidden;
+            position: relative;
+        }
+        
+        /* Animated Background Shapes */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 10s infinite alternate;
+        }
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: #28a745;
+            top: -50px;
+            left: -50px;
+        }
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: #007f5f;
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 50px); }
         }
 
         .login-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 78, 23, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .login-header {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .login-header img {
-            width: 80px;
+            width: 90px;
             margin-bottom: 1rem;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            transition: transform 0.5s;
+        }
+        
+        .login-header img:hover {
+            transform: rotate(5deg) scale(1.05);
         }
 
         .login-header h3 {
             color: #004E17;
             font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .login-header p {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .form-floating {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 1rem 1rem;
+            height: auto;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background-color: #f8f9fa;
         }
 
         .form-control:focus {
             border-color: #004E17;
-            box-shadow: 0 0 0 0.25rem rgba(0, 78, 23, 0.25);
+            box-shadow: 0 0 0 4px rgba(0, 78, 23, 0.1);
+            background-color: #fff;
+        }
+        
+        .form-floating > label {
+            padding: 1rem 1rem;
         }
 
         .btn-primary {
-            background-color: #004E17;
-            border-color: #004E17;
-            padding: 10px 20px;
-            font-weight: bold;
+            background: linear-gradient(45deg, #004E17, #28a745);
+            border: none;
+            padding: 14px;
+            font-weight: 600;
             width: 100%;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 78, 23, 0.3);
         }
 
         .btn-primary:hover {
-            background-color: #003610;
-            border-color: #003610;
+            background: linear-gradient(45deg, #003610, #1e7e34);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 78, 23, 0.4);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
         }
         
         .error-message {
-            color: red;
-            margin-bottom: 15px;
+            background-color: #ffe5e5;
+            color: #d63384;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
             display: none;
+            border-left: 4px solid #d63384;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .footer-text {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #adb5bd;
         }
     </style>
 </head>
 
 <body>
+    <!-- Animated background elements -->
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
 
     <div class="login-card">
         <div class="login-header">
             <img src="./assets/images/logo.png.png" alt="Logo">
-            <h3>Login</h3>
-            <p class="text-muted">Suyogya Document Automation Center</p>
+            <h3>Welcome</h3>
+            <p>Sign in to Suyogya Document Automation</p>
         </div>
 
-        <div id="error-msg" class="error-message">Invalid Username or Password</div>
+        <div id="error-msg" class="error-message">
+            <i class="bi bi-exclamation-circle-fill me-2"></i>Invalid Username or Password
+        </div>
 
         <form id="loginForm" action="/login" method="POST">
-            <div class="mb-3 text-start">
-                <label for="username" class="form-label fw-bold">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+            <div class="form-floating text-start">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                <label for="username">Username</label>
             </div>
-            <div class="mb-4 text-start">
-                <label for="password" class="form-label fw-bold">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+            <div class="form-floating text-start">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                <label for="password">Password</label>
             </div>
-            <button type="submit" class="btn btn-primary">Sign In</button>
+            <button type="submit" class="btn btn-primary">
+                Sign In
+            </button>
         </form>
+        
+        <div class="footer-text">
+            &copy; 2025 Suyogya Saving & Credit Cooperative
+        </div>
     </div>
 
     <script>
