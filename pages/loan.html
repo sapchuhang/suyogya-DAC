@@ -1,631 +1,936 @@
 <!DOCTYPE html>
 <html lang="ne">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ऋण निवेदन</title>
+    <title>ऋण माग पत्र</title>
     <style>
-        body {
-            font-family: "Stack Sans Notch", Arial, sans-serif;
-            margin: 20px;
-            background: #ffffff;
-        }
-
-        .form-container {
-            background: #e4e4e4;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 500px;
-            margin-bottom: 25px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            color: #004E17;
-            font-weight: bold;
-            margin-top: 10px;
-            display: block;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
-
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 20px;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #004E17;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #004E17;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 13px;
+        }
+        
+        .section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            background: #004E17;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        .form-group {
+            margin-bottom: 10px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 4px;
+            color: #333;
+            font-weight: 500;
+            font-size: 12px;
+        }
+        
+        select {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            background: white;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: #004E17;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #004E17;
+        }
+        
         textarea {
             resize: vertical;
-            min-height: 60px;
+            min-height: 40px;
         }
-
-        button {
-            padding: 10px 15px;
-            margin-top: 15px;
-            border: none;
-            background: #004E17;
-            color: white;
-            font-size: 15px;
-            border-radius: 5px;
-            cursor: pointer;
+        
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
         }
-
-        button:hover {
-            background: #28a745;
-        }
-
-        .section-header {
-            background: #004E17;
-            color: white;
-            padding: 8px;
-            margin-top: 15px;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        .guarantor-section {
-            border: 2px solid #004E17;
-            padding: 15px;
-            margin-top: 10px;
-            border-radius: 5px;
+        
+        .guarantor-section,
+        .collateral-section {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
             background: #f9f9f9;
         }
+        
+        .guarantor-section h4,
+        .collateral-section h4 {
+            margin: 0 0 8px 0;
+            color: #004E17;
+            font-size: 12px;
+        }
+        
+        .add-btn,
+        .generate-btn,
+        .remove-btn {
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .add-btn {
+            background: #28a745;
+            color: white;
+            margin-top: 8px;
+        }
+        
+        .generate-btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            background: #004E17;
+            color: white;
+            margin-top: 15px;
+        }
+        
+        .remove-btn {
+            background: #dc3545;
+            color: white;
+            margin-top: 8px;
+        }
+        
+        .output-container {
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-        .radio-group {
+        .button-group {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .copy-btn,
+        .print-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            border: none;
+            color: white;
+        }
+        
+        .copy-btn {
+            background: #28a745;
+        }
+        
+        .print-btn {
+            background: #17a2b8;
+        }
+
+        .pages-container {
+            padding: 20px;
+            background: white;
+        }
+
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 0 auto 20px auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-size: 11pt;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .doc-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .doc-header .title {
+            font-size: 10pt;
+            margin-bottom: 3px;
+        }
+
+        .doc-header .org-name {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .doc-header .address {
+            font-size: 10pt;
+            margin-bottom: 8px;
+        }
+
+        .doc-header .form-title {
+            font-size: 12pt;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .recipient {
+            margin: 15px 0;
+        }
+
+        .date-right {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        .subject {
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .content-text {
+            text-align: justify;
             margin: 10px 0;
         }
 
-        .radio-group label {
-            display: inline;
-            margin-right: 15px;
-            font-weight: normal;
+        .section-heading {
+            text-align: center;
+            font-weight: bold;
+            margin: 15px 0;
+            text-decoration: underline;
         }
 
-        .hidden {
-            display: none;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
         }
 
-        /* A4 Print Settings */
-        @page {
-            size: A4;
-            margin: 20mm 25mm;
+        table, th, td {
+            border: 1px solid #000;
+        }
+
+        th, td {
+            padding: 6px;
+            text-align: center;
+        }
+
+        th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .terms {
+            margin: 15px 0;
+        }
+
+        .terms-title {
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 8px;
+        }
+
+        .terms ol {
+            margin-left: 20px;
+        }
+
+        .terms li {
+            margin-bottom: 8px;
+        }
+
+        .signature-section {
+            margin-top: 40px;
+        }
+
+        .signature-line {
+            display: inline-block;
+            width: 200px;
+            border-bottom: 1px dotted #000;
+            margin: 30px 10px 5px 10px;
+        }
+
+        .office-use {
+            margin-top: 30px;
+            border-top: 2px solid #000;
+            padding-top: 15px;
+        }
+
+        .office-use-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .approval-section {
+            margin-top: 30px;
+        }
+
+        .flex-signature {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .signature-block {
+            text-align: center;
         }
 
         @media print {
             body {
-                margin: 0;
-                padding: 0;
                 background: white;
-            }
-
-            body * {
-                visibility: hidden !important;
-            }
-
-            #printLetter,
-            #printLetter * {
-                visibility: visible !important;
-            }
-
-            #printLetter {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                margin: 0;
                 padding: 0;
             }
-
-            .form-container,
-            h2,
-            #printBtn {
-                display: none !important;
-            }
-
-            table {
-                page-break-inside: avoid;
-            }
-        }
-
-        /* Letter formatting */
-        #printLetter {
-            line-height: 1.8;
-            font-size: 12px;
-            background: white;
-            padding: 0;
-            margin: 0;
-        }
-
-        .signature-line {
-            margin-top: 60px;
-            width: 150px;
-            border-top: 2px dotted #000;
-        }
-
-        .container {
-            display: flex;
-            gap: 30px;
-            align-items: flex-start;
-        }
-
-        @media (max-width: 900px) {
             .container {
-                flex-direction: column;
+                grid-template-columns: 1fr;
+            }
+            .form-container {
+                display: none;
+            }
+            .button-group {
+                display: none;
+            }
+            .output-container {
+                box-shadow: none;
+            }
+            .pages-container {
+                padding: 0;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                page-break-after: always;
+            }
+            .page:last-child {
+                page-break-after: auto;
             }
         }
 
-        /* Nepali Date Picker Styling */
-        .date-picker {
-            position: relative;
-        }
-
-        .calendar-popup {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            border: 2px solid #004E17;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: none;
-            margin-top: 5px;
-        }
-
-        .calendar-popup.active {
-            display: block;
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .calendar-header button {
-            margin: 0;
-            padding: 5px 10px;
-            font-size: 18px;
-        }
-
-        .calendar-header select {
-            width: auto;
-            padding: 5px;
-            margin: 0 5px;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            margin-top: 10px;
-        }
-
-        .calendar-day {
-            padding: 8px;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-        }
-
-        .calendar-day:hover {
-            background: #e8f5e9;
-        }
-
-        .calendar-day.selected {
-            background: #004E17;
-            color: white;
-        }
-
-        .calendar-day.disabled {
-            color: #ccc;
-            cursor: not-allowed;
-        }
-
-        .day-header {
-            font-weight: bold;
-            padding: 5px;
-            text-align: center;
-            color: #004E17;
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .form-container {
+                position: static;
+            }
         }
     </style>
 </head>
-
 <body>
-
-    <h2 style="background-color: #004E17; color: white; padding: 10px; text-align: center;">ऋण निवेदन</h2>
-
     <div class="container">
-
         <div class="form-container">
+            <div class="header">
+                <h1>सुयोग्य बचत तथा ऋण सहकारी संस्था लि.</h1>
+                <p>कोटेश्वर ३२, काठमाडौं</p>
+                <h2 style="margin-top: 10px; color: #004E17; font-size: 16px;">ऋण माग पत्र</h2>
+            </div>
+
             <form id="loanForm">
-
-                <label>मिति:</label>
-                <div class="date-picker">
-                    <input type="text" id="date" placeholder="मिति छान्नुहोस्" required readonly>
-                    <div class="calendar-popup" id="calendar">
-                        <div class="calendar-header">
-                            <button type="button" id="prevMonth">◀</button>
-                            <div>
-                                <select id="monthSelect"></select>
-                                <select id="yearSelect"></select>
-                            </div>
-                            <button type="button" id="nextMonth">▶</button>
+                <div class="section">
+                    <div class="section-title">मिति र सदस्यता</div>
+                    <div class="form-group">
+                        <label>मिति</label>
+                        <div style="display: flex; gap: 5px;">
+                            <select id="nepaliYear" style="flex: 1;">
+                                <option value="">वर्ष</option>
+                            </select>
+                            <select id="nepaliMonth" style="flex: 1;">
+                                <option value="">महिना</option>
+                                <option value="01">बैशाख</option>
+                                <option value="02">जेठ</option>
+                                <option value="03">असार</option>
+                                <option value="04">साउन</option>
+                                <option value="05">भदौ</option>
+                                <option value="06">असोज</option>
+                                <option value="07">कार्तिक</option>
+                                <option value="08">मंसिर</option>
+                                <option value="09">पुष</option>
+                                <option value="10">माघ</option>
+                                <option value="11">फागुन</option>
+                                <option value="12">चैत</option>
+                            </select>
+                            <select id="nepaliDay" style="flex: 1;">
+                                <option value="">गते</option>
+                            </select>
                         </div>
-                        <div class="calendar-grid" id="calendarGrid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>सदस्यता नं.</label>
+                        <input type="text" id="membershipNo">
+                    </div>
+                    <div class="form-group">
+                        <label>ऋण रकम (रु.)</label>
+                        <input type="number" id="loanAmount">
+                    </div>
+                    <div class="form-group">
+                        <label>ऋण रकम अक्षरमा</label>
+                        <input type="text" id="loanAmountWords" placeholder="दस हजार मात्र">
                     </div>
                 </div>
 
-                <div class="section-header">निवेदकको विवरण</div>
-
-                <label>निवेदकको नाम:</label>
-                <input type="text" id="applicantName" placeholder="पुरा नाम" required>
-
-                <label>तन पुस्ते विवरण:</label>
-                <input type="text" id="grandfather" placeholder="बाजेको नाम" style="margin-bottom: 5px;">
-                <input type="text" id="father" placeholder="बुबाको नाम" style="margin-bottom: 5px;">
-                <input type="text" id="self" placeholder="आफ्नो नाम" style="margin-bottom: 5px;">
-
-                <label>स्थायी ठेगाना:</label>
-                <select id="permanentDistrict" style="margin-bottom: 5px;" required>
-                    <option value="">जिल्ला छान्नुहोस्</option>
-                    <option value="काठमाडौं">काठमाडौं</option>
-                    <option value="भक्तपुर">भक्तपुर</option>
-                    <option value="ललितपुर">ललितपुर</option>
-                    <option value="चितवन">चितवन</option>
-                    <option value="मोरङ">मोरङ</option>
-                    <option value="झापा">झापा</option>
-                    <option value="सुनसरी">सुनसरी</option>
-                </select>
-                <select id="permanentMunicipality" style="margin-bottom: 5px;" required>
-                    <option value="">न.पा./गा.पा. छान्नुहोस्</option>
-                    <option value="काठमाडौं महानगरपालिका">काठमाडौं महानगरपालिका</option>
-                    <option value="भक्तपुर नगरपालिका">भक्तपुर नगरपालिका</option>
-                    <option value="ललितपुर महानगरपालिका">ललितपुर महानगरपालिका</option>
-                </select>
-                <input type="text" id="permanentWard" placeholder="वडा नं." required>
-
-                <label>अस्थायी ठेगाना:</label>
-                <select id="temporaryDistrict" style="margin-bottom: 5px;" required>
-                    <option value="">जिल्ला छान्नुहोस्</option>
-                    <option value="काठमाडौं">काठमाडौं</option>
-                    <option value="भक्तपुर">भक्तपुर</option>
-                    <option value="ललितपुर">ललितपुर</option>
-                </select>
-                <select id="temporaryMunicipality" style="margin-bottom: 5px;" required>
-                    <option value="">न.पा./गा.पा. छान्नुहोस्</option>
-                    <option value="काठमाडौं महानगरपालिका">काठमाडौं महानगरपालिका</option>
-                    <option value="भक्तपुर नगरपालिका">भक्तपुर नगरपालिका</option>
-                    <option value="ललितपुर महानगरपालिका">ललितपुर महानगरपालिका</option>
-                </select>
-                <input type="text" id="temporaryWard" placeholder="वडा नं." required>
-
-                <label>सम्पर्क नम्बर:</label>
-                <input type="tel" id="contactNumber" placeholder="मोबाइल नम्बर" required>
-
-                <label>ना.प्र.प. नं.:</label>
-                <input type="text" id="citizenshipNo" placeholder="ना.प्र.प. नं." required>
-
-                <div class="section-header">ऋणको विवरण</div>
-
-                <label>ऋणको प्रकार:</label>
-                <select id="loanType" required>
-                    <option value="">ऋण प्रकार छान्नुहोस्</option>
-                    <option value="व्यवसायिक ऋण">व्यवसायिक ऋण</option>
-                    <option value="गृह ऋण">गृह ऋण</option>
-                    <option value="शिक्षा ऋण">शिक्षा ऋण</option>
-                    <option value="कृषि ऋण">कृषि ऋण</option>
-                    <option value="साधारण ऋण">साधारण ऋण</option>
-                    <option value="जग्गा ऋण">जग्गा ऋण</option>
-                </select>
-
-                <label>माग गरिएको ऋण रकम (रु.):</label>
-                <input type="number" id="loanAmount" placeholder="रकम रुपैयाँमा" required>
-
-                <label>ऋण लिनुको उद्देश्य:</label>
-                <textarea id="loanPurpose" placeholder="ऋण लिनुको कारण विस्तृतमा लेख्नुहोस्" required></textarea>
-
-                <label>तिर्न सक्ने अवधि (महिनामा):</label>
-                <input type="number" id="loanDuration" placeholder="महिना" required>
-
-                <div class="section-header">सुरक्षाको प्रकार</div>
-
-                <div class="radio-group">
-                    <label style="font-weight: bold; color: #004E17;">सुरक्षा:</label><br>
-                    <input type="radio" name="securityType" value="collateral" id="collateralRadio" checked>
-                    <label for="collateralRadio">धितो (Collateral)</label>
-                    <input type="radio" name="securityType" value="guarantee" id="guaranteeRadio">
-                    <label for="guaranteeRadio">व्यक्तिगत जमानत (Personal Guarantee)</label>
-                    <input type="radio" name="securityType" value="both" id="bothRadio">
-                    <label for="bothRadio">दुवै (Both)</label>
-                </div>
-
-                <div id="collateralSection">
-                    <label>धितो राख्ने सम्पत्तिको विवरण:</label>
-                    <textarea id="collateralDetails" placeholder="जग्गा/घर/अन्य सम्पत्तिको विवरण"></textarea>
-                </div>
-
-                <div id="guaranteeSection" class="hidden">
-                    <label>जमानी दिने व्यक्तिको संख्या:</label>
-                    <select id="guarantorCount">
-                        <option value="1">१ जना</option>
-                        <option value="2">२ जना</option>
-                        <option value="3">३ जना</option>
-                    </select>
-
-                    <div class="guarantor-section" id="guarantor1Section">
-                        <h4 style="color: #004E17; margin-top: 0;">पहिलो जमानीदार</h4>
-                        <label>नाम:</label>
-                        <input type="text" id="g1Name" placeholder="पुरा नाम">
-                        <label>तन पुस्ते विवरण:</label>
-                        <input type="text" id="g1Grandfather" placeholder="बाजेको नाम" style="margin-bottom: 5px;">
-                        <input type="text" id="g1Father" placeholder="बुबाको नाम" style="margin-bottom: 5px;">
-                        <input type="text" id="g1Self" placeholder="आफ्नो नाम" style="margin-bottom: 5px;">
-                        <label>ठेगाना:</label>
-                        <input type="text" id="g1Address" placeholder="जिल्ला, न.पा./गा.पा., वडा नं.">
-                        <label>सम्पर्क नम्बर:</label>
-                        <input type="tel" id="g1Contact" placeholder="मोबाइल नम्बर">
-                        <label>ना.प्र.प. नं.:</label>
-                        <input type="text" id="g1Citizenship" placeholder="ना.प्र.प. नं.">
+                <div class="section">
+                    <div class="section-title">१. व्यक्तिगत विवरण</div>
+                    <div class="form-group">
+                        <label>नाम, थर</label>
+                        <input type="text" id="name">
                     </div>
-
-                    <div class="guarantor-section hidden" id="guarantor2Section">
-                        <h4 style="color: #004E17; margin-top: 0;">दोस्रो जमानीदार</h4>
-                        <label>नाम:</label>
-                        <input type="text" id="g2Name" placeholder="पुरा नाम">
-                        <label>तन पुस्ते विवरण:</label>
-                        <input type="text" id="g2Grandfather" placeholder="बाजेको नाम" style="margin-bottom: 5px;">
-                        <input type="text" id="g2Father" placeholder="बुबाको नाम" style="margin-bottom: 5px;">
-                        <input type="text" id="g2Self" placeholder="आफ्नो नाम" style="margin-bottom: 5px;">
-                        <label>ठेगाना:</label>
-                        <input type="text" id="g2Address" placeholder="जिल्ला, न.पा./गा.पा., वडा नं.">
-                        <label>सम्पर्क नम्बर:</label>
-                        <input type="tel" id="g2Contact" placeholder="मोबाइल नम्बर">
-                        <label>ना.प्र.प. नं.:</label>
-                        <input type="text" id="g2Citizenship" placeholder="ना.प्र.प. नं.">
+                    <div class="form-group">
+                        <label>बाबु/पतिको नामथर</label>
+                        <input type="text" id="fatherName">
                     </div>
-
-                    <div class="guarantor-section hidden" id="guarantor3Section">
-                        <h4 style="color: #004E17; margin-top: 0;">तेस्रो जमानीदार</h4>
-                        <label>नाम:</label>
-                        <input type="text" id="g3Name" placeholder="पुरा नाम">
-                        <label>तन पुस्ते विवरण:</label>
-                        <input type="text" id="g3Grandfather" placeholder="बाजेको नाम" style="margin-bottom: 5px;">
-                        <input type="text" id="g3Father" placeholder="बुबाको नाम" style="margin-bottom: 5px;">
-                        <input type="text" id="g3Self" placeholder="आफ्नो नाम" style="margin-bottom: 5px;">
-                        <label>ठेगाना:</label>
-                        <input type="text" id="g3Address" placeholder="जिल्ला, न.पा./गा.पा., वडा नं.">
-                        <label>सम्पर्क नम्बर:</label>
-                        <input type="tel" id="g3Contact" placeholder="मोबाइल नम्बर">
-                        <label>ना.प्र.प. नं.:</label>
-                        <input type="text" id="g3Citizenship" placeholder="ना.प्र.प. नं.">
+                    <div class="form-group">
+                        <label>बाजे/ससुराको नाम</label>
+                        <input type="text" id="grandfatherName">
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label>जिल्ला</label>
+                            <input type="text" id="district">
+                        </div>
+                        <div class="form-group">
+                            <label>न.पा/गा.पा./वडा</label>
+                            <input type="text" id="municipality">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label>टोल</label>
+                            <input type="text" id="tole">
+                        </div>
+                        <div class="form-group">
+                            <label>फोन नं.</label>
+                            <input type="text" id="phone">
+                        </div>
                     </div>
                 </div>
 
-                <button type="submit">निवेदन तयार गर्नुहोस्</button>
+                <div class="section">
+                    <div class="section-title">२. पेशाको विवरण</div>
+                    <div class="form-group">
+                        <label>फर्म/व्यवसायको नाम</label>
+                        <input type="text" id="businessName">
+                    </div>
+                    <div class="form-group">
+                        <label>ठेगाना</label>
+                        <input type="text" id="businessAddress">
+                    </div>
+                    <div class="form-group">
+                        <label>व्यवसाय संचालन गरेको घर</label>
+                        <input type="text" id="businessLocation">
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">७. जमानी विवरण</div>
+                    <div id="guarantorsContainer"></div>
+                    <button type="button" class="add-btn" onclick="addGuarantor()">+ जमानी थप्नुहोस्</button>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">७. धितो विवरण</div>
+                    <div id="collateralContainer"></div>
+                    <button type="button" class="add-btn" onclick="addCollateral()">+ धितो थप्नुहोस्</button>
+                </div>
+
+                <button type="button" class="generate-btn" onclick="generateForm()">फारम तयार गर्नुहोस्</button>
             </form>
         </div>
 
-        <div id="printLetter" style="flex: 1;">
-            <div id="letterContent">
-                <br><br><br>
-                <p align="right">मितिः [DATE]<br><br></p>
+        <div class="output-container">
+            <div class="button-group">
+                <button class="copy-btn" onclick="copyToClipboard()">📋 Copy</button>
+                <button class="print-btn" onclick="printForm()">🖨️ Print</button>
+            </div>
+            
+            <div class="pages-container" id="output">
+                <div class="page page-break">
+                    <div class="doc-header">
+                        <div class="title">ऋण नीति–२०७७ (संशोधन सहित) को दफा ३.४ सँग सम्बन्धित</div>
+                        <div class="org-name">सुयोग्य बचत तथा ऋण सहकारी संस्था लि.</div>
+                        <div class="address">कोटेश्वर ३२, काठमाडौं</div>
+                        <div class="form-title">ऋण माग पत्र</div>
+                    </div>
 
-                <br>
-                श्रीमान् प्रमुख कार्यकारी अधिकृतज्यू,<br>
-                सुयोग्य बचत तथा ऋण सहकारी संस्था लिमिटेड,<br>
-                पाटन, ललितपुर।<br><br>
+                    <div class="recipient">
+                        श्रीमान् प्रमुख कार्यकारी अधिकृतज्यू,<br>
+                        सुयोग्य बचत तथा ऋण सहकारी संस्था लि.<br>
+                        कोटेश्वर ३२, काठमाडौं ।
+                    </div>
 
-                <p align="center"><b>विषयः ऋणको लागि निवेदन।</b><br></p>
+                    <div class="date-right">मितिः <span id="dispDate">........................</span></div>
 
-                <p align="justify">
-                    महोदय,<br><br>
-                    म [APPLICANT_NAME] [TAN_PUSTA] स्थायी ठेगाना [PERMANENT_DISTRICT] जिल्ला 
-                    [PERMANENT_MUNICIPALITY] वडा नं. [PERMANENT_WARD] र हाल [TEMPORARY_DISTRICT] जिल्ला 
-                    [TEMPORARY_MUNICIPALITY] वडा नं. [TEMPORARY_WARD] मा बसोबास गर्दै आएको व्यक्ति हुँ।<br><br>
-                    
-                    म यस सहकारी संस्थाको सदस्य भई आफ्नो [LOAN_PURPOSE] को लागि [LOAN_TYPE] अन्तर्गत 
-                    रु. [LOAN_AMOUNT] (अक्षरेपी रुपैयाँ [LOAN_AMOUNT_WORDS]) ऋण लिन चाहन्छु। 
-                    उक्त ऋण म [LOAN_DURATION] महिनाभित्र ब्याजसहित तिर्न सक्षम छु।<br><br>
-                    
-                    [SECURITY_DETAILS]
-                    
-                    यसबाहेक म यस सहकारी संस्थाको नियम र सर्तहरु पालना गर्न प्रतिबद्ध छु।<br><br>
-                    
-                    तसर्थ माथि उल्लेखित सर्त र शर्तहरुमा मलाई ऋण उपलब्ध गराइदिनुहुन अनुरोध गर्दछु।<br><br>
-                    
-                    धन्यवाद!
-                </p>
+                    <div class="subject">विषयः ऋण उपलब्ध गराई दिनुहुन ।</div>
 
-                <br><br>
-                <p align="left">
-                    <b>निवेदक</b><br>
-                    <div class="signature-line"></div>
-                    नाम: [APPLICANT_NAME]<br>
-                    सम्पर्क नं.: [CONTACT_NUMBER]<br>
-                    ना.प्र.प. नं.: [CITIZENSHIP_NO]
-                </p>
+                    <div class="content-text">
+                        उपरोक्त विषयमा तपशिलमा उल्लेख भए अनुसार संस्थाको सदस्यता नं. <span id="dispMemberNo">........................</span> भएको मलाई 
+                        रु <span id="dispLoanAmount">........................</span> ÷ अक्षरुपी <span id="dispLoanAmountWords">................................................................</span> ऋण रकम आवश्यक 
+                        परेको हुनाले संस्थाको नियम अनुसार उपलब्ध गराईदिनुहुन अनुरोध गर्दछु । मैले लिएको ऋण तोकिएको कार्यमा लगानी गर्नुका साथै संस्थाको नियम अनुसार तोकिएको समयभित्र साँवा ब्याज बुझाउने छु साथै संस्थाको ऋण नीति २०७७ (संसोधन सहित) को समेत पालना गर्ने छु । अन्यथा संस्थाको नियमानुसार असुली कारवाही गरेमा मेरो मञ्जुरी छ ।
+                    </div>
 
-                [GUARANTOR_SIGNATURES]
+                    <div class="section-heading">तपशिल</div>
 
-                <button id="printBtn" onclick="window.print()">Print</button>
+                    <div style="margin: 15px 0;">
+                        <strong>१. ऋण मागकर्ता सदस्यको नाम, थर :</strong>
+                        <div style="margin-left: 20px; margin-top: 8px;">
+                            <div>नाम थर : <span id="dispName">........................</span></div>
+                            <div>बाबु÷पतिको नामथर : <span id="dispFatherName">........................</span></div>
+                            <div>बाजे÷ससुराको नाम : <span id="dispGrandfatherName">........................</span></div>
+                            <div>स्थायी ठेगाना : <span id="dispDistrict">........................</span> जिल्ला <span id="dispMunicipality">........................</span> वडा नं <span id="dispTole">..................</span></div>
+                            <div>फोन नं. : <span id="dispPhone">........................</span></div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 15px 0;">
+                        <strong>२. पेशाको विस्तृत विवरण</strong>
+                        <div style="margin-left: 20px; margin-top: 8px;">
+                            <div>फर्म÷व्यवसायको नाम : <span id="dispBusinessName">........................</span></div>
+                            <div>ठेगाना : <span id="dispBusinessAddress">........................</span></div>
+                        </div>
+                    </div>
+
+                    <div style="margin: 15px 0;">
+                        <div><strong>३. व्यवसाय संचालन गरेको घर :</strong> <span id="dispBusinessLocation">........................</span></div>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <strong>७. जमानत बस्ने सदस्यहरुको विवरण :</strong>
+                        <table id="guarantorTable">
+                            <thead>
+                                <tr>
+                                    <th>क्र.सं.</th>
+                                    <th>जमानी सदस्यहरुको नाम</th>
+                                    <th>ठेगाना</th>
+                                    <th>सदस्यता नं.</th>
+                                    <th>बचत रकम</th>
+                                    <th>शेयर रकम</th>
+                                    <th>कबुल गरेको रकम</th>
+                                    <th>दस्तखत</th>
+                                </tr>
+                            </thead>
+                            <tbody id="guarantorTableBody">
+                                <tr>
+                                    <td colspan="8" style="height: 40px;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div style="margin: 20px 0;">
+                        <strong>७. धितोमा ऋण लिने भए सो को विवरण :</strong>
+                        <table id="collateralTable">
+                            <thead>
+                                <tr>
+                                    <th>क्र.सं.</th>
+                                    <th>जिल्ला</th>
+                                    <th>न.पा/गा.पा.</th>
+                                    <th>कि.नं.</th>
+                                    <th>क्षेत्रफल</th>
+                                    <th>बचत रकम</th>
+                                    <th>धितो मूल्यांकन रकम</th>
+                                    <th>दस्तखत</th>
+                                </tr>
+                            </thead>
+                            <tbody id="collateralTableBody">
+                                <tr>
+                                    <td colspan="8" style="height: 40px;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="content-text">
+                        उपरोक्त बमोजिमका विवरणहरु ठीक साँचो हो झुठ्ठा साबित भएमा कानून बमोजिम सहुला बुझाउँला। उल्लेखित व्यक्ति <span id="dispName2">........................</span> लाई म÷हामी व्यक्तिगत÷सामुहिक जमानत दिन तयार छौं । कथमकदाचित निजले कर्जा भाखा भित्रमा चुक्ता नगरे म÷हामी निजको ऋण चुक्ता गर्न मञ्जुर छौं ।
+                    </div>
+
+                    <div class="terms">
+                        <div class="terms-title">ऋणी ले अनिवार्य पालना गर्नुपर्ने शर्तहरु</div>
+                        <ol>
+                            <li>मैले कबुल गरेको समयभित्र वा किस्तामा तिर्न पर्ने सावा तथा व्याज संस्थाको नियमानुसार भुक्तानी गरेन भने विलम्ब शुल्क तिर्न मञ्जुर छु ।</li>
+                            <li>मैले जुन प्रयोजनका लागि ऋण माग गरेको छु सो ऋण अन्य प्रयोजनमा उपयोग गर्ने छैन् ।</li>
+                            <li>मैले लिएको ऋण समयमा चुक्ता नगरेमा मैले संस्थामा लेखदिएको धितो तथा मेरो एकाघर सगोलको नाममा रहेको चलअचल श्री सम्पत्तिबाट संस्थाले असुलउपर गरेमा मेरो मञ्जुरी छ ।</li>
+                        </ol>
+                    </div>
+
+                    <div class="signature-section" style="text-align: right;">
+                        <div>निवेदकको दस्तखत</div>
+                        <div class="signature-line"></div>
+                    </div>
+
+                    <div class="office-use">
+                        <div class="office-use-title">कार्यालय प्रयोजनको लागि</div>
+                        <div class="content-text">
+                            निजले ऋण मागपत्रमा प्रस्तुत गरेको विवरणहरु पूर्ण रुपमा ठिक छ, निजको संंस्थागत कारोबारको विश्लेषण गर्दा निजलाई रु <span id="dispLoanAmount2">........................</span> सम्म ऋण प्रदान गर्न उचित देखिन्छ ।
+                        </div>
+
+                        <div class="flex-signature">
+                            <div class="signature-block">
+                                <div>ऋण अधिकृत</div>
+                                <div class="signature-line"></div>
+                                <div>नाम ः __________________</div>
+                            </div>
+                            <div class="signature-block">
+                                <div>मिति ः</div>
+                                <div class="signature-line"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="approval-section">
+                        <div class="content-text">
+                            प्रस्तुत मागपत्र एवं सिफारिशको आधारमा रु <span id="dispLoanAmount3">........................</span> ऋण प्रदान गर्नको लागि स्वीकृत गरिन्छ ।
+                        </div>
+
+                        <div class="flex-signature">
+                            <div class="signature-block">
+                                <div>मिति ः</div>
+                                <div class="signature-line"></div>
+                            </div>
+                            <div class="signature-block">
+                                <div>प्रमुख कार्यकारी अधिकृत</div>
+                                <div class="signature-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
 
     <script>
-        // Nepali date conversion data
-        const nepaliMonths = ['बैशाख', 'जेठ', 'असार', 'साउन', 'भदौ', 'असोज', 'कार्तिक', 'मंसिर', 'पुष', 'माघ', 'फाल्गुन', 'चैत'];
-        const nepaliDays = ['आइत', 'सोम', 'मंगल', 'बुध', 'बिहि', 'शुक्र', 'शनि'];
+        let guarantorCount = 0;
+        let collateralCount = 0;
+
+        // Nepali numerals conversion
         const nepaliNumerals = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
-
-        const nepaliMonthDays = {
-            2081: [31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-            2082: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-            2083: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-            2084: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-            2085: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31]
+        const convertToNepali = (num) => {
+            return String(num).split('').map(digit => nepaliNumerals[parseInt(digit)]).join('');
         };
 
-        function toNepaliNumber(num) {
-            return String(num).split('').map(d => nepaliNumerals[parseInt(d)]).join('');
-        }
-
-        function convertNumberToWords(num) {
-            const ones = ['', 'एक', 'दुई', 'तीन', 'चार', 'पाँच', 'छ', 'सात', 'आठ', 'नौ'];
-            const tens = ['', '', 'बीस', 'तीस', 'चालीस', 'पचास', 'साठी', 'सत्तरी', 'असी', 'नब्बे'];
-            const teens = ['दश', 'एघार', 'बाह्र', 'तेह्र', 'चौध', 'पन्ध्र', 'सोह्र', 'सत्र', 'अठार', 'उन्नाइस'];
+        // Initialize Nepali date picker
+        window.addEventListener('DOMContentLoaded', () => {
+            const yearSelect = document.getElementById('nepaliYear');
+            const daySelect = document.getElementById('nepaliDay');
             
-            if (num === 0) return 'शून्य';
-            if (num < 10) return ones[num];
-            if (num >= 10 && num < 20) return teens[num - 10];
-            if (num >= 20 && num < 100) {
-                return tens[Math.floor(num / 10)] + (num % 10 !== 0 ? ' ' + ones[num % 10] : '');
+            // Populate years (2070-2090)
+            for (let year = 2070; year <= 2090; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = convertToNepali(year);
+                yearSelect.appendChild(option);
             }
-            if (num >= 100 && num < 1000) {
-                return ones[Math.floor(num / 100)] + ' सय' + (num % 100 !== 0 ? ' ' + convertNumberToWords(num % 100) : '');
+            
+            // Populate days (1-32)
+            for (let day = 1; day <= 32; day++) {
+                const option = document.createElement('option');
+                const dayStr = day.toString().padStart(2, '0');
+                option.value = dayStr;
+                option.textContent = convertToNepali(day);
+                daySelect.appendChild(option);
             }
-            if (num >= 1000 && num < 100000) {
-                return convertNumberToWords(Math.floor(num / 1000)) + ' हजार' + (num % 1000 !== 0 ? ' ' + convertNumberToWords(num % 1000) : '');
+            
+            // Set current Nepali date (approximate)
+            const today = new Date();
+            const currentNepaliYear = today.getFullYear() + 57;
+            const currentNepaliMonth = ((today.getMonth() + 9) % 12) || 12;
+            const currentNepaliDay = today.getDate() + 15;
+            
+            yearSelect.value = currentNepaliYear;
+            document.getElementById('nepaliMonth').value = currentNepaliMonth.toString().padStart(2, '0');
+            if (currentNepaliDay <= 32) {
+                daySelect.value = currentNepaliDay.toString().padStart(2, '0');
             }
-            if (num >= 100000 && num < 10000000) {
-                return convertNumberToWords(Math.floor(num / 100000)) + ' लाख' + (num % 100000 !== 0 ? ' ' + convertNumberToWords(num % 100000) : '');
-            }
-            return 'धेरै ठूलो संख्या';
-        }
-
-        let currentNepYear = 2081;
-        let currentNepMonth = 7;
-        let selectedDate = null;
-        const originalLetter = document.getElementById("letterContent").innerHTML;
-
-        // Security type radio buttons event listeners
-        document.querySelectorAll('input[name="securityType"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const collateralSection = document.getElementById('collateralSection');
-                const guaranteeSection = document.getElementById('guaranteeSection');
-                
-                if (this.value === 'collateral') {
-                    collateralSection.classList.remove('hidden');
-                    guaranteeSection.classList.add('hidden');
-                } else if (this.value === 'guarantee') {
-                    collateralSection.classList.add('hidden');
-                    guaranteeSection.classList.remove('hidden');
-                } else if (this.value === 'both') {
-                    collateralSection.classList.remove('hidden');
-                    guaranteeSection.classList.remove('hidden');
-                }
-            });
+            
+            updateDateDisplay();
         });
 
-        // Guarantor count change
-        document.getElementById('guarantorCount').addEventListener('change', function() {
-            const count = parseInt(this.value);
-            document.getElementById('guarantor1Section').classList.remove('hidden');
-            document.getElementById('guarantor2Section').classList.toggle('hidden', count < 2);
-            document.getElementById('guarantor3Section').classList.toggle('hidden', count < 3);
-        });
-
-        function initCalendar() {
-            const monthSelect = document.getElementById('monthSelect');
-            const yearSelect = document.getElementById('yearSelect');
-
-            nepaliMonths.forEach((month, idx) => {
-                const opt = document.createElement('option');
-                opt.value = idx;
-                opt.textContent = month;
-                monthSelect.appendChild(opt);
-            });
-
-            for (let y = 2080; y <= 2085; y++) {
-                const opt = document.createElement('option');
-                opt.value = y;
-                opt.textContent = toNepaliNumber(y);
-                yearSelect.appendChild(opt);
-            }
-
-            monthSelect.value = currentNepMonth;
-            yearSelect.value = currentNepYear;
-
-            renderCalendar(currentNepYear, currentNepMonth);
-        }
-
-        function renderCalendar(year, month) {
-            const grid = document.getElementById('calendarGrid');
-            grid.innerHTML = '';
-
-            nepaliDays.forEach(day => {
-                const header = document.createElement('div');
-                header.className = 'day-header';
-                header.textContent = day;
-                grid.appendChild(header);
-            });
-
-            const daysInMonth = nepaliMonthDays[year] ? nepaliMonthDays[year][month] : 30;
-            const startDay = (year + month) % 7;
+        // Update date display when date picker changes
+        function updateDateDisplay() {
+            const year = document.getElementById('nepaliYear').value;
+            const month = document.getElementById('nepaliMonth').value;
+            const day = document.getElementById('nepaliDay').value;
             
-            for (let i = 0; i < startDay; i++) {
-                const empty = document.createElement('div');
-                empty.className = 'calendar-day disabled';
-                grid.appendChild(empty);
-            }
-
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dayCell = document.createElement('div');
-                dayCell.className = 'calendar-day';
-                dayCell.textContent = toNepaliNumber(day);
-                dayCell.onclick = () => selectDate(year, month, day);
-
-                if (selectedDate && selectedDate.year === year && selectedDate.month === month && selectedDate.day === day) {
-                    dayCell.classList.add('selected');
-                }
-
-                grid.appendChild(dayCell);
+            if (year && month && day) {
+                const dateStr = `${convertToNepali(year)}/${convertToNepali(month)}/${convertToNepali(day)}`;
+                // Store for later use in generate function
+                window.selectedNepaliDate = dateStr;
             }
         }
 
-        function selectDate(year, month, day) {
-            selectedDate = { year, month, day };
-            const dateStr = `${toNepaliNumber(year)}-${toNepaliNumber(month + 1).padStart(2, '०')}-${toNepaliNumber(day).padStart(2, '०')}`;
-            document.getElementById('date').value = dateStr;
-            document.getElementById('calendar').classList.remove('active');
-            renderCalendar(year, month);
+        document.getElementById('nepaliYear').addEventListener('change', updateDateDisplay);
+        document.getElementById('nepaliMonth').addEventListener('change', updateDateDisplay);
+        document.getElementById('nepaliDay').addEventListener('change', updateDateDisplay);
+
+        function addGuarantor() {
+            guarantorCount++;
+            const container = document.getElementById('guarantorsContainer');
+            const div = document.createElement('div');
+            div.className = 'guarantor-section';
+            div.id = 'guarantor' + guarantorCount;
+            div.innerHTML = `
+                <h4>जमानी ${guarantorCount}</h4>
+                <div class="form-group">
+                    <label>नाम</label>
+                    <input type="text" class="g-name">
+                </div>
+                <div class="form-group">
+                    <label>ठेगाना</label>
+                    <input type="text" class="g-address">
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>सदस्यता नं.</label>
+                        <input type="text" class="g-membership">
+                    </div>
+                    <div class="form-group">
+                        <label>बचत रकम</label>
+                        <input type="text" class="g-savings">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>शेयर रकम</label>
+                        <input type="text" class="g-share">
+                    </div>
+                    <div class="form-group">
+                        <label>कबुल रकम</label>
+                        <input type="text" class="g-accepted">
+                    </div>
+                </div>
+                <button type="button" class="remove-btn" onclick="removeGuarantor(${guarantorCount})">हटाउनुहोस्</button>
+            `;
+            container.appendChild(div);
         }
 
-        document.getElementById('date').onclick = () => {
-            document.getElementById('calendar').classList.toggle('active');
-        };
+        function removeGuarantor(id) {
+            document.getElementById('guarantor' + id)?.remove();
+        }
 
-        document.getElementById('prevMonth').onclick = () => {
-            currentNepMonth--;
-            if (currentNepMonth < 0) {
-                currentNepMonth = 11;
-                currentNepYear--;
+        function addCollateral() {
+            collateralCount++;
+            const container = document.getElementById('collateralContainer');
+            const div = document.createElement('div');
+            div.className = 'collateral-section';
+            div.id = 'collateral' + collateralCount;
+            div.innerHTML = `
+                <h4>धितो ${collateralCount}</h4>
+                <div class="row">
+                    <div class="form-group">
+                        <label>जिल्ला</label>
+                        <input type="text" class="c-district">
+                    </div>
+                    <div class="form-group">
+                        <label>न.पा/गा.पा.</label>
+                        <input type="text" class="c-municipality">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>कि.नं.</label>
+                        <input type="text" class="c-plot">
+                    </div>
+                    <div class="form-group">
+                        <label>क्षेत्रफल</label>
+                        <input type="text" class="c-area">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label>बचत रकम</label>
+                        <input type="text" class="c-savings">
+                    </div>
+                    <div class="form-group">
+                        <label>मूल्यांकन रकम</label>
+                        <input type="text" class="c-valuation">
+                    </div>
+                </div>
+                <button type="button" class="remove-btn" onclick="removeCollateral(${collateralCount})">हटाउनुहोस्</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeCollateral(id) {
+            document.getElementById('collateral' + id)?.remove();
+        }
+
+        function generateForm() {
+            const date = window.selectedNepaliDate || '';
+            const membershipNo = document.getElementById('membershipNo').value || '';
+            const loanAmount = document.getElementById('loanAmount').value || '';
+            const loanAmountWords = document.getElementById('loanAmountWords').value || '';
+            const name = document.getElementById('name').value || '';
+            const fatherName = document.getElementById('fatherName').value || '';
+            const grandfatherName = document.getElementById('grandfatherName').value || '';
+            const district = document.getElementById('district').value || '';
+            const municipality = document.getElementById('municipality').value || '';
+            const tole = document.getElementById('tole').value || '';
+            const phone = document.getElementById('phone').value || '';
+            const businessName = document.getElementById('businessName').value || '';
+            const businessAddress = document.getElementById('businessAddress').value || '';
+            const businessLocation = document.getElementById('businessLocation').value || '';
+
+            document.getElementById('dispDate').textContent = date;
+            document.getElementById('dispMemberNo').textContent = membershipNo;
+            document.getElementById('dispLoanAmount').textContent = loanAmount;
+            document.getElementById('dispLoanAmount2').textContent = loanAmount;
+            document.getElementById('dispLoanAmount3').textContent = loanAmount;
+            document.getElementById('dispLoanAmountWords').textContent = loanAmountWords;
+            document.getElementById('dispName').textContent = name;
+            document.getElementById('dispName2').textContent = name;
+            document.getElementById('dispFatherName').textContent = fatherName;
+            document.getElementById('dispGrandfatherName').textContent = grandfatherName;
+            document.getElementById('dispDistrict').textContent = district;
+            document.getElementById('dispMunicipality').textContent = municipality;
+            document.getElementById('dispTole').textContent = tole;
+            document.getElementById('dispPhone').textContent = phone;
+            document.getElementById('dispBusinessName').textContent = businessName;
+            document.getElementById('dispBusinessAddress').textContent = businessAddress;
+            document.getElementById('dispBusinessLocation').textContent = businessLocation;
+
+            const guarantorTableBody = document.getElementById('guarantorTableBody');
+            guarantorTableBody.innerHTML = '';
+            
+            const guarantors = document.querySelectorAll('.guarantor-section');
+            if (guarantors.length === 0) {
+                const row = guarantorTableBody.insertRow();
+                row.insertCell(0).colSpan = 8;
+                row.cells[0].style.height = '40px';
+                row.cells[0].textContent = '';
+            } else {
+                guarantors.forEach((g, i) => {
+                    const row = guarantorTableBody.insertRow();
+                    row.insertCell(0).textContent = i + 1;
+                    row.insertCell(1).textContent = g.querySelector('.g-name').value || '';
+                    row.insertCell(2).textContent = g.querySelector('.g-address').value || '';
+                    row.insertCell(3).textContent = g.querySelector('.g-membership').value || '';
+                    row.insertCell(4).textContent = g.querySelector('.g-savings').value || '';
+                    row.insertCell(5).textContent = g.querySelector('.g-share').value || '';
+                    row.insertCell(6).textContent = g.querySelector('.g-accepted').value || '';
+                    row.insertCell(7).textContent = '';
+                });
             }
-            document.getElementById('monthSelect').value = currentNepMonth;
-            document.getElementById('yearSelect').value = currentNepYear;
-            renderCalendar(currentNepYear, currentNepMonth);
-        };
 
-        document.getElementById('nextMonth').onclick = () => {
-            currentNepMonth++;
-            if (currentNepMonth > 11) {
-                currentNepMonth = 0;
-                currentNepYear++;
+            const collateralTableBody = document.getElementById('collateralTableBody');
+            collateralTableBody.innerHTML = '';
+            
+            const collaterals = document.querySelectorAll('.collateral-section');
+            if (collaterals.length === 0) {
+                const row = collateralTableBody.insertRow();
+                row.insertCell(0).colSpan = 8;
+                row.cells[0].style.height = '40px';
+                row.cells[0].textContent = '';
+            } else {
+                collaterals.forEach((c, i) => {
+                    const row = collateralTableBody.insertRow();
+                    row.insertCell(0).textContent = i + 1;
+                    row.insertCell(1).textContent = c.querySelector('.c-district').value || '';
+                    row.insertCell(2).textContent = c.querySelector('.c-municipality').value || '';
+                    row.insertCell(3).textContent = c.querySelector('.c-plot').value || '';
+                    row.insertCell(4).textContent = c.querySelector('.c-area').value || '';
+                    row.insertCell(5).textContent = c.querySelector('.c-savings').value || '';
+                    row.insertCell(6).textContent = c.querySelector('.c-valuation').value || '';
+                    row.insertCell(7).textContent = '';
+                });
             }
-            document.getElementById('monthSelect').value = currentNepMonth;
-            document.getElementById('yearSelect').value = currentNepYear;
-            renderCalendar(currentNepYear, currentNepMonth);
-        };
+        }
 
-        document.getElementById('monthSelect').onchange = (e) => {
-            currentNepMonth =
+        function copyToClipboard() {
+            const output = document.getElementById('output');
+            const range = document.createRange();
+            range.selectNode(output);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            
+            try {
+                document.execCommand('copy');
+                alert('फारम कपी भयो!');
+            } catch(err) {
+                alert('कपी गर्न सकिएन!');
+            }
+            
+            window.getSelection().removeAllRanges();
+        }
+
+        function printForm() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
