@@ -59,6 +59,37 @@
             background: #28a745;
         }
 
+        .section-header {
+            background: #004E17;
+            color: white;
+            padding: 8px;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .guarantor-section {
+            border: 2px solid #004E17;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+
+        .radio-group {
+            margin: 10px 0;
+        }
+
+        .radio-group label {
+            display: inline;
+            margin-right: 15px;
+            font-weight: normal;
+        }
+
+        .hidden {
+            display: none;
+        }
+
         /* A4 Print Settings */
         @page {
             size: A4;
@@ -233,11 +264,15 @@
                     </div>
                 </div>
 
+                <div class="section-header">निवेदकको विवरण</div>
+
                 <label>निवेदकको नाम:</label>
                 <input type="text" id="applicantName" placeholder="पुरा नाम" required>
 
-                <label>बाबु/आमा/श्रीमान्‌को नाम:</label>
-                <input type="text" id="parentName" placeholder="नाम" required>
+                <label>तन पुस्ते विवरण:</label>
+                <input type="text" id="grandfather" placeholder="बाजेको नाम" style="margin-bottom: 5px;">
+                <input type="text" id="father" placeholder="बुबाको नाम" style="margin-bottom: 5px;">
+                <input type="text" id="self" placeholder="आफ्नो नाम" style="margin-bottom: 5px;">
 
                 <label>स्थायी ठेगाना:</label>
                 <select id="permanentDistrict" style="margin-bottom: 5px;" required>
@@ -276,6 +311,11 @@
                 <label>सम्पर्क नम्बर:</label>
                 <input type="tel" id="contactNumber" placeholder="मोबाइल नम्बर" required>
 
+                <label>ना.प्र.प. नं.:</label>
+                <input type="text" id="citizenshipNo" placeholder="ना.प्र.प. नं." required>
+
+                <div class="section-header">ऋणको विवरण</div>
+
                 <label>ऋणको प्रकार:</label>
                 <select id="loanType" required>
                     <option value="">ऋण प्रकार छान्नुहोस्</option>
@@ -296,8 +336,79 @@
                 <label>तिर्न सक्ने अवधि (महिनामा):</label>
                 <input type="number" id="loanDuration" placeholder="महिना" required>
 
-                <label>धितो राख्ने सम्पत्तिको विवरण:</label>
-                <textarea id="collateralDetails" placeholder="जग्गा/घर/अन्य सम्पत्तिको विवरण" required></textarea>
+                <div class="section-header">सुरक्षाको प्रकार</div>
+
+                <div class="radio-group">
+                    <label style="font-weight: bold; color: #004E17;">सुरक्षा:</label><br>
+                    <input type="radio" name="securityType" value="collateral" id="collateralRadio" checked>
+                    <label for="collateralRadio">धितो (Collateral)</label>
+                    <input type="radio" name="securityType" value="guarantee" id="guaranteeRadio">
+                    <label for="guaranteeRadio">व्यक्तिगत जमानत (Personal Guarantee)</label>
+                    <input type="radio" name="securityType" value="both" id="bothRadio">
+                    <label for="bothRadio">दुवै (Both)</label>
+                </div>
+
+                <div id="collateralSection">
+                    <label>धितो राख्ने सम्पत्तिको विवरण:</label>
+                    <textarea id="collateralDetails" placeholder="जग्गा/घर/अन्य सम्पत्तिको विवरण"></textarea>
+                </div>
+
+                <div id="guaranteeSection" class="hidden">
+                    <label>जमानी दिने व्यक्तिको संख्या:</label>
+                    <select id="guarantorCount">
+                        <option value="1">१ जना</option>
+                        <option value="2">२ जना</option>
+                        <option value="3">३ जना</option>
+                    </select>
+
+                    <div class="guarantor-section" id="guarantor1Section">
+                        <h4 style="color: #004E17; margin-top: 0;">पहिलो जमानीदार</h4>
+                        <label>नाम:</label>
+                        <input type="text" id="g1Name" placeholder="पुरा नाम">
+                        <label>तन पुस्ते विवरण:</label>
+                        <input type="text" id="g1Grandfather" placeholder="बाजेको नाम" style="margin-bottom: 5px;">
+                        <input type="text" id="g1Father" placeholder="बुबाको नाम" style="margin-bottom: 5px;">
+                        <input type="text" id="g1Self" placeholder="आफ्नो नाम" style="margin-bottom: 5px;">
+                        <label>ठेगाना:</label>
+                        <input type="text" id="g1Address" placeholder="जिल्ला, न.पा./गा.पा., वडा नं.">
+                        <label>सम्पर्क नम्बर:</label>
+                        <input type="tel" id="g1Contact" placeholder="मोबाइल नम्बर">
+                        <label>ना.प्र.प. नं.:</label>
+                        <input type="text" id="g1Citizenship" placeholder="ना.प्र.प. नं.">
+                    </div>
+
+                    <div class="guarantor-section hidden" id="guarantor2Section">
+                        <h4 style="color: #004E17; margin-top: 0;">दोस्रो जमानीदार</h4>
+                        <label>नाम:</label>
+                        <input type="text" id="g2Name" placeholder="पुरा नाम">
+                        <label>तन पुस्ते विवरण:</label>
+                        <input type="text" id="g2Grandfather" placeholder="बाजेको नाम" style="margin-bottom: 5px;">
+                        <input type="text" id="g2Father" placeholder="बुबाको नाम" style="margin-bottom: 5px;">
+                        <input type="text" id="g2Self" placeholder="आफ्नो नाम" style="margin-bottom: 5px;">
+                        <label>ठेगाना:</label>
+                        <input type="text" id="g2Address" placeholder="जिल्ला, न.पा./गा.पा., वडा नं.">
+                        <label>सम्पर्क नम्बर:</label>
+                        <input type="tel" id="g2Contact" placeholder="मोबाइल नम्बर">
+                        <label>ना.प्र.प. नं.:</label>
+                        <input type="text" id="g2Citizenship" placeholder="ना.प्र.प. नं.">
+                    </div>
+
+                    <div class="guarantor-section hidden" id="guarantor3Section">
+                        <h4 style="color: #004E17; margin-top: 0;">तेस्रो जमानीदार</h4>
+                        <label>नाम:</label>
+                        <input type="text" id="g3Name" placeholder="पुरा नाम">
+                        <label>तन पुस्ते विवरण:</label>
+                        <input type="text" id="g3Grandfather" placeholder="बाजेको नाम" style="margin-bottom: 5px;">
+                        <input type="text" id="g3Father" placeholder="बुबाको नाम" style="margin-bottom: 5px;">
+                        <input type="text" id="g3Self" placeholder="आफ्नो नाम" style="margin-bottom: 5px;">
+                        <label>ठेगाना:</label>
+                        <input type="text" id="g3Address" placeholder="जिल्ला, न.पा./गा.पा., वडा नं.">
+                        <label>सम्पर्क नम्बर:</label>
+                        <input type="tel" id="g3Contact" placeholder="मोबाइल नम्बर">
+                        <label>ना.प्र.प. नं.:</label>
+                        <input type="text" id="g3Citizenship" placeholder="ना.प्र.प. नं.">
+                    </div>
+                </div>
 
                 <button type="submit">निवेदन तयार गर्नुहोस्</button>
             </form>
@@ -317,7 +428,7 @@
 
                 <p align="justify">
                     महोदय,<br><br>
-                    म [APPLICANT_NAME] [PARENT_NAME]को छोरा/छोरी/श्रीमती स्थायी ठेगाना [PERMANENT_DISTRICT] जिल्ला 
+                    म [APPLICANT_NAME] [TAN_PUSTA] स्थायी ठेगाना [PERMANENT_DISTRICT] जिल्ला 
                     [PERMANENT_MUNICIPALITY] वडा नं. [PERMANENT_WARD] र हाल [TEMPORARY_DISTRICT] जिल्ला 
                     [TEMPORARY_MUNICIPALITY] वडा नं. [TEMPORARY_WARD] मा बसोबास गर्दै आएको व्यक्ति हुँ।<br><br>
                     
@@ -325,7 +436,8 @@
                     रु. [LOAN_AMOUNT] (अक्षरेपी रुपैयाँ [LOAN_AMOUNT_WORDS]) ऋण लिन चाहन्छु। 
                     उक्त ऋण म [LOAN_DURATION] महिनाभित्र ब्याजसहित तिर्न सक्षम छु।<br><br>
                     
-                    ऋणको सुरक्षाको लागि मसँग [COLLATERAL_DETAILS] धितो राख्न तयार छु। 
+                    [SECURITY_DETAILS]
+                    
                     यसबाहेक म यस सहकारी संस्थाको नियम र सर्तहरु पालना गर्न प्रतिबद्ध छु।<br><br>
                     
                     तसर्थ माथि उल्लेखित सर्त र शर्तहरुमा मलाई ऋण उपलब्ध गराइदिनुहुन अनुरोध गर्दछु।<br><br>
@@ -339,8 +451,10 @@
                     <div class="signature-line"></div>
                     नाम: [APPLICANT_NAME]<br>
                     सम्पर्क नं.: [CONTACT_NUMBER]<br>
-                    ना.प्र.प. नं.: ............................
+                    ना.प्र.प. नं.: [CITIZENSHIP_NO]
                 </p>
+
+                [GUARANTOR_SIGNATURES]
 
                 <button id="printBtn" onclick="window.print()">Print</button>
             </div>
@@ -393,6 +507,33 @@
         let currentNepMonth = 7;
         let selectedDate = null;
         const originalLetter = document.getElementById("letterContent").innerHTML;
+
+        // Security type radio buttons event listeners
+        document.querySelectorAll('input[name="securityType"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const collateralSection = document.getElementById('collateralSection');
+                const guaranteeSection = document.getElementById('guaranteeSection');
+                
+                if (this.value === 'collateral') {
+                    collateralSection.classList.remove('hidden');
+                    guaranteeSection.classList.add('hidden');
+                } else if (this.value === 'guarantee') {
+                    collateralSection.classList.add('hidden');
+                    guaranteeSection.classList.remove('hidden');
+                } else if (this.value === 'both') {
+                    collateralSection.classList.remove('hidden');
+                    guaranteeSection.classList.remove('hidden');
+                }
+            });
+        });
+
+        // Guarantor count change
+        document.getElementById('guarantorCount').addEventListener('change', function() {
+            const count = parseInt(this.value);
+            document.getElementById('guarantor1Section').classList.remove('hidden');
+            document.getElementById('guarantor2Section').classList.toggle('hidden', count < 2);
+            document.getElementById('guarantor3Section').classList.toggle('hidden', count < 3);
+        });
 
         function initCalendar() {
             const monthSelect = document.getElementById('monthSelect');
@@ -487,67 +628,4 @@
         };
 
         document.getElementById('monthSelect').onchange = (e) => {
-            currentNepMonth = parseInt(e.target.value);
-            renderCalendar(currentNepYear, currentNepMonth);
-        };
-
-        document.getElementById('yearSelect').onchange = (e) => {
-            currentNepYear = parseInt(e.target.value);
-            renderCalendar(currentNepYear, currentNepMonth);
-        };
-
-        document.addEventListener('click', (e) => {
-            const calendar = document.getElementById('calendar');
-            const dateInput = document.getElementById('date');
-            if (!calendar.contains(e.target) && e.target !== dateInput) {
-                calendar.classList.remove('active');
-            }
-        });
-
-        document.getElementById("loanForm").addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            const date = document.getElementById("date").value;
-            const applicantName = document.getElementById("applicantName").value;
-            const parentName = document.getElementById("parentName").value;
-            const permanentDistrict = document.getElementById("permanentDistrict").value;
-            const permanentMunicipality = document.getElementById("permanentMunicipality").value;
-            const permanentWard = document.getElementById("permanentWard").value;
-            const temporaryDistrict = document.getElementById("temporaryDistrict").value;
-            const temporaryMunicipality = document.getElementById("temporaryMunicipality").value;
-            const temporaryWard = document.getElementById("temporaryWard").value;
-            const contactNumber = document.getElementById("contactNumber").value;
-            const loanType = document.getElementById("loanType").value;
-            const loanAmount = document.getElementById("loanAmount").value;
-            const loanAmountWords = convertNumberToWords(parseInt(loanAmount));
-            const loanPurpose = document.getElementById("loanPurpose").value;
-            const loanDuration = document.getElementById("loanDuration").value;
-            const collateralDetails = document.getElementById("collateralDetails").value;
-
-            let letter = originalLetter;
-            letter = letter.replace(/\[DATE\]/g, date)
-                .replace(/\[APPLICANT_NAME\]/g, applicantName)
-                .replace(/\[PARENT_NAME\]/g, parentName)
-                .replace(/\[PERMANENT_DISTRICT\]/g, permanentDistrict)
-                .replace(/\[PERMANENT_MUNICIPALITY\]/g, permanentMunicipality)
-                .replace(/\[PERMANENT_WARD\]/g, permanentWard)
-                .replace(/\[TEMPORARY_DISTRICT\]/g, temporaryDistrict)
-                .replace(/\[TEMPORARY_MUNICIPALITY\]/g, temporaryMunicipality)
-                .replace(/\[TEMPORARY_WARD\]/g, temporaryWard)
-                .replace(/\[CONTACT_NUMBER\]/g, contactNumber)
-                .replace(/\[LOAN_TYPE\]/g, loanType)
-                .replace(/\[LOAN_AMOUNT\]/g, loanAmount)
-                .replace(/\[LOAN_AMOUNT_WORDS\]/g, loanAmountWords)
-                .replace(/\[LOAN_PURPOSE\]/g, loanPurpose)
-                .replace(/\[LOAN_DURATION\]/g, loanDuration)
-                .replace(/\[COLLATERAL_DETAILS\]/g, collateralDetails);
-
-            document.getElementById("letterContent").innerHTML = letter;
-        });
-
-        initCalendar();
-    </script>
-
-</body>
-
-</html>
+            currentNepMonth =
