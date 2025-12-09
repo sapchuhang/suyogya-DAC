@@ -218,10 +218,11 @@
             font-size: 11pt;
             line-height: 1.6;
             position: relative;
+            box-sizing: border-box;
         }
 
         .page-break {
-            page-break-after: always;
+            /* Removed - not needed */
         }
 
         .doc-header {
@@ -356,9 +357,13 @@
             body {
                 background: white;
                 padding: 0;
+                margin: 0;
             }
             .container {
                 grid-template-columns: 1fr;
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
             }
             .form-container {
                 display: none;
@@ -368,13 +373,21 @@
             }
             .output-container {
                 box-shadow: none;
+                border-radius: 0;
+                margin: 0;
             }
             .pages-container {
                 padding: 0;
+                margin: 0;
             }
             .page {
                 box-shadow: none;
                 margin: 0;
+                padding: 20mm;
+                width: 100%;
+                page-break-inside: avoid;
+            }
+            .page:first-child {
                 page-break-after: always;
             }
             .page:last-child {
@@ -519,7 +532,7 @@
             </div>
             
             <div class="pages-container" id="output">
-                <div class="page page-break">
+                <div class="page">
                     <div class="doc-header">
                         <div class="title">ऋण नीति–२०७७ (संशोधन सहित) को दफा ३.४ सँग सम्बन्धित</div>
                         <div class="org-name">सुयोग्य बचत तथा ऋण सहकारी संस्था लि.</div>
