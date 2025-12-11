@@ -14,7 +14,7 @@ const users = [
     { username: 'kunjum', passwordPlain: '0002', passwordHash: '' },
     { username: 'amrita', passwordPlain: '0010', passwordHash: '' },
     { username: 'suman', passwordPlain: '0004', passwordHash: '' }
-    { username : 'phul', passwordPlain : '0005', passwordHash : ''}
+    { username : 'phul', passwordPlain : '0008', passwordHash : ''},
 ];
 
 const saltRounds = 10;
