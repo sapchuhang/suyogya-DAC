@@ -9,7 +9,7 @@ const PORT = 3000;
 
 // Define users with their plain passwords (in a real app, only store hashes)
 const users = [
-    { username: 'phukumari', passwordPlain: '0008', passwordHash: '' },
+    { username: 'phulkumari', passwordPlain: '0008', passwordHash: '' },
     { username: 'ujwal', passwordPlain: '0003', passwordHash: '' },
     { username: 'sapchuhang', passwordPlain: '0011', passwordHash: '' },
     { username: 'kunjum', passwordPlain: '0002', passwordHash: '' },
