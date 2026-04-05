@@ -113,6 +113,7 @@ app.get('/', (req, res) => {
 app.use('/pages', express.static(path.join(__dirname, 'pages')));
 
 // Start Server
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Access on other computers using http://192.168.1.78:${PORT}`);
 });
