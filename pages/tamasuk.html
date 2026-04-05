@@ -200,7 +200,7 @@
         .page {
             width: 210mm;
             height: 297mm;
-            padding: 30mm 15mm 15mm 30mm;
+            padding: 35mm 15mm 15mm 40mm;
             margin: 0 auto 20px auto;
             background: white;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -215,7 +215,7 @@
 
         .tamasuk-wrapper {
             display: flex;
-            gap: 3mm;
+            gap: 6mm;
             height: 100%;
         }
 
@@ -287,7 +287,7 @@
 
         .bottom-section {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: flex-end;
             margin-top: 15px;
         }
@@ -301,7 +301,7 @@
             .page {
                 box-shadow: none;
                 margin: 0;
-                padding: 30mm 15mm 15mm 30mm;
+                padding: 35mm 15mm 15mm 45mm;
                 width: 210mm;
                 height: 297mm;
                 page-break-after: auto;
@@ -360,7 +360,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group"><label>रकम रु.</label><input type="text" id="loanAmount"></div>
+                        <div class="form-group"><label>रकम रु.</label><input type="text" id="loanAmount" style="font-family: 'Noto Sans Devanagari', 'Kalimati', sans-serif;"></div>
                         <div class="form-group"><label>अक्षरेपी</label><input type="text" id="loanAmountWords"></div>
                     </div>
                     <div class="row">
@@ -456,17 +456,18 @@
                             <div class="rotated-sidebar">
                                 <div class="witness-stack">
                                     <div style="font-weight: bold; text-align: center; font-size: 13pt;">साक्षी</div>
-                                    <div>३. <span id="disp_w3District">..........</span> जिल्ला <span id="disp_w3Mun">...........</span> म.न.पा./न.पा./गा.पा., <span id="disp_w3Ward">.....</span> वडा <span id="disp_w3Tole">..........</span> टोल बस्ने बर्ष <span id="disp_w3Age">....</span> को श्री <span id="disp_w3Name">...............</span></div>
-                                    <div>२. <span id="disp_w2District">..........</span> जिल्ला <span id="disp_w2Mun">...........</span> म.न.पा./न.पा./गा.पा., <span id="disp_w2Ward">.....</span> वडा <span id="disp_w2Tole">..........</span> टोल बस्ने बर्ष <span id="disp_w2Age">....</span> को श्री <span id="disp_w2Name">...............</span></div>
+                                   
                                     <div>१. <span id="disp_w1District">..........</span> जिल्ला <span id="disp_w1Mun">...........</span> म.न.पा./न.पा./गा.पा., <span id="disp_w1Ward">.....</span> वडा <span id="disp_w1Tole">..........</span> टोल बस्ने बर्ष <span id="disp_w1Age">....</span> को श्री <span id="disp_w1Name">...............</span></div>
+                                    <div>२. <span id="disp_w2District">..........</span> जिल्ला <span id="disp_w2Mun">...........</span> म.न.पा./न.पा./गा.पा., <span id="disp_w2Ward">.....</span> वडा <span id="disp_w2Tole">..........</span> टोल बस्ने बर्ष <span id="disp_w2Age">....</span> को श्री <span id="disp_w2Name">...............</span></div>
+                                    <div>३. <span id="disp_w3District">..........</span> जिल्ला <span id="disp_w3Mun">...........</span> म.न.पा./न.पा./गा.पा., <span id="disp_w3Ward">.....</span> वडा <span id="disp_w3Tole">..........</span> टोल बस्ने बर्ष <span id="disp_w3Age">....</span> को श्री <span id="disp_w3Name">...............</span></div>
                                 </div>
                                 
                                 <div class="thumb-stack">
                                     <div style="font-weight: bold; font-size: 10pt;">ऋणीको दस्तखत</div>
                                     <table style="border-collapse: collapse; text-align: center; background: white;">
                                         <tr>
-                                            <td style="border: 1px solid #000; padding: 25px 20px; min-width: 80px;">दायाँ</td>
-                                            <td style="border: 1px solid #000; padding: 25px 20px; min-width: 80px;">बायाँ</td>
+                                            <td style="border: 1px solid #000; padding: 40px 0px; min-width: 80px;"></td>
+                                            <td style="border: 1px solid #000; padding: 40px 0px; min-width: 80px;"></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -476,7 +477,7 @@
                         <!-- Main Form Content Box -->
                         <div class="main-text">
                             <div>
-                                लिखितम धनीका नाम सहकारी ऐन, २०७४ बमोजिम सहकारी विभाग डिभिजन सहकारी कार्यालय काठमाडौंमा दर्ता भएको दर्ता नं १४४६-६४-६५ भई काठमाडौं जिल्ला काठमाडौं म.न.पा. वडा नं ३२ स्थित सुयोग्य बचत तथा ऋण सहकारी संस्था लि. धन व्यहोर्ने ऋणीको नाम श्री <span id="disp_grandparentName">...........................................</span> को नाती/नतिनी/बुहारी श्री <span id="disp_parentName">...........................................</span> का छोरा/छोरी/श्रीमती <span id="disp_borrowerName">...........................................</span> जिल्ला <span id="disp_permDistrict">......................</span> म.न.पा./न.पा./गा.पा., वडा नं <span id="disp_permWard">............</span> घर भै हाल <span id="disp_currLocation">...........................................</span> जिल्ला <span id="disp_currDistrict">......................</span> म.न.पा./न.पा./गा.पा., वडा नं <span id="disp_currWard">............</span> बस्ने नागरिकता प्रमाण-पत्र नं <span id="disp_citizenshipNo">...............................</span> का श्री/श्रीमती <span id="disp_borrowerName2">...........................................</span> ले <span id="disp_purpose">.................................</span> कार्य गर्नका लागि मिति २०८२ <span id="disp_appMonth">..............</span> <span id="disp_appDay">..............</span> मा पेश गरेको ऋण निवेदनमा उल्लेखित सर्तहरु र तपसिल बमोजिमको सम्पति धितो राखि संस्थाको निति, नियम र निर्देशन समेतलाई पालना गर्ने गरी आजका मितिमा रु. <span id="disp_loanAmount">...............................</span> (अक्षरेपी <span id="disp_loanAmountWords">...........................................................................</span>) ऋण लिएको ठिक साँचो हो । उक्त ऋण रकम र सो मा बार्षिक <span id="disp_interestRate">..............</span> % का दरले साथै संस्थाको नियमानुसार समय समयमा परिवर्तन हुने दर समेतको आधारमा हुने ब्याज समेत २०<span id="disp_repayYear">.......</span> साल <span id="disp_repayMonth">..............</span> महिना <span id="disp_repayDay">..............</span> गते भित्र <span id="disp_installments">..............</span> किस्तामा सम्पूर्ण साँवा तथा ब्याज यसै संस्थामा बुझाउने छु । जुन कार्यका लागि ऋण लिएको हो, सो कार्यमा नलगाएमा वा भाखाभित्र साँवा तथा ब्याज बुझाउन नसकेमा मेरो अन्य एकाघरको सगोलको परिवारको नाममा रहेको चल-अचल श्रीसम्पत्तिबाट प्रचलित कानुन बमोजिम असुलउपर गरिलिनु भएमा कुनै प्रकारको उजुरबाजुर गर्ने छैन भनि मेरो राजिखुशी तथा मन्जुरीले किनाराका साक्षीका रोहवरमा यस संस्थामा बसी यो तमसुकमा सहिछाप गरी वही संस्थालाई दिएँ ।
+                                लिखितम धनीका नाम सहकारी ऐन, २०७४ बमोजिम सहकारी विभाग डिभिजन सहकारी कार्यालय काठमाडौंमा दर्ता भएको दर्ता नं १४४६/६४/६५ भई काठमाडौं जिल्ला काठमाडौं म.न.पा. वडा नं ३२ स्थित सुयोग्य बचत तथा ऋण सहकारी संस्था लि. धन व्यहोर्ने ऋणीको नाम श्री <span id="disp_grandparentName">...........................................</span> को नाती/नतिनी/बुहारी श्री <span id="disp_parentName">...........................................</span> का छोरा/छोरी/श्रीमती <span id="disp_borrowerName">...........................................</span> जिल्ला <span id="disp_permDistrict">......................</span> म.न.पा./न.पा./गा.पा., वडा नं <span id="disp_permWard">............</span> घर भै हाल <span id="disp_currLocation">...........................................</span> जिल्ला <span id="disp_currDistrict">......................</span> म.न.पा./न.पा./गा.पा., वडा नं <span id="disp_currWard">............</span> बस्ने नागरिकता प्रमाण-पत्र नं <span id="disp_citizenshipNo">...............................</span> का श्री/श्रीमती <span id="disp_borrowerName2">...........................................</span> ले <span id="disp_purpose">.................................</span> कार्य गर्नका लागि मिति २०८२ <span id="disp_appMonth">..............</span> <span id="disp_appDay">..............</span> मा पेश गरेको ऋण निवेदनमा उल्लेखित सर्तहरु र तपसिल बमोजिमको सम्पति धितो राखि संस्थाको निति, नियम र निर्देशन समेतलाई पालना गर्ने गरी आजका मितिमा रु. <span id="disp_loanAmount">...............................</span>/- (अक्षरेपी <span id="disp_loanAmountWords">...........................................................................</span>) ऋण लिएको ठिक साँचो हो । उक्त ऋण रकम र सो मा बार्षिक <span id="disp_interestRate">..............</span> % का दरले साथै संस्थाको नियमानुसार समय समयमा परिवर्तन हुने दर समेतको आधारमा हुने ब्याज समेत २०<span id="disp_repayYear">.......</span> साल <span id="disp_repayMonth">..............</span> महिना <span id="disp_repayDay">..............</span> गते भित्र <span id="disp_installments">..............</span> किस्तामा सम्पूर्ण साँवा तथा ब्याज यसै संस्थामा बुझाउने छु । जुन कार्यका लागि ऋण लिएको हो, सो कार्यमा नलगाएमा वा भाखाभित्र साँवा तथा ब्याज बुझाउन नसकेमा मेरो अन्य एकाघरको सगोलको परिवारको नाममा रहेको चल-अचल श्रीसम्पत्तिबाट प्रचलित कानुन बमोजिम असुलउपर गरिलिनु भएमा कुनै प्रकारको उजुरबाजुर गर्ने छैन भनि मेरो राजिखुशी तथा मन्जुरीले किनाराका साक्षीका रोहवरमा यस संस्थामा बसी यो तमसुकमा सहिछाप गरी वही संस्थालाई दिएँ ।
                             </div>
 
                             <div class="table-container">
@@ -498,26 +499,26 @@
                                         <tr><td style="height: 25px;"></td><td></td><td></td><td></td><td></td></tr>
                                         <tr><td style="height: 25px;"></td><td></td><td></td><td></td><td></td></tr>
                                         <tr><td style="height: 25px;"></td><td></td><td></td><td></td><td></td></tr>
-                                        <tr><td style="height: 25px;"></td><td></td><td></td><td></td><td></td></tr>
                                     </tbody>
                                 </table>
                             </div>
 
                             <div class="bottom-section">
-                                <div style="font-size: 10.5pt;">
-                                    ईति सम्वत २०८२ साल <span id="disp_tMonth">................</span> महिना <span id="disp_tDay">.............</span> गते रोज <span id="disp_tDayOfWeek">.................</span> शुभम ।
-                                </div>
-                                
+                               
                                 <div style="text-align: center;">
-                                    <div style="font-weight: bold; margin-bottom: 5px; font-size: 11pt;">ऋणी को दस्तखत</div>
+                                    <div style="font-weight: bold; margin-bottom: 5px; font-size: 10pt;">ऋणी को दस्तखत</div>
                                     <table style="border-collapse: collapse; text-align: center;">
                                         <tr>
-                                            <td style="border: 1px solid #000; padding: 25px 25px; min-width: 80px;">दायाँ</td>
-                                            <td style="border: 1px solid #000; padding: 25px 25px; min-width: 80px;">बायाँ</td>
+                                            <td style="border: 1px solid #000; padding: 40px 0px; min-width: 80px;"></td>
+                                            <td style="border: 1px solid #000; padding: 40px 0px; min-width: 80px;"></td>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
+                             <div style="font-size: 9.5pt;">
+                                    ईति सम्वत २०८२ साल <span id="disp_tMonth">................</span> महिना <span id="disp_tDay">.............</span> गते रोज <span id="disp_tDayOfWeek">.................</span> शुभम ।
+                                </div>
+                                
                         </div>
                     </div>
                 </div>
@@ -527,6 +528,31 @@
 
     <script>
         let tGuarantorCount = 0;
+
+        document.getElementById('loanAmount').addEventListener('input', function(e) {
+            let rawValue = this.value.replace(/,/g, '');
+            // Map any existing Devanagari to ASCII for processing
+            rawValue = rawValue.replace(/[०-९]/g, d => '०१२३४५६७८९'.indexOf(d));
+            // Keep only ASCII numbers and dot
+            rawValue = rawValue.replace(/[^\d.]/g, '');
+            
+            let parts = rawValue.split('.');
+            let integerPart = parts[0];
+            if (integerPart) {
+                // Format with Indian System Comma
+                integerPart = parseInt(integerPart, 10).toLocaleString('en-IN');
+                // Translate ASCII back to Devanagari digits
+                integerPart = integerPart.replace(/\d/g, d => '०१२३४५६७८९'[d]);
+            }
+            if (parts.length > 1) {
+                // Also translate decimal part
+                let decPart = parts.slice(1).join('');
+                decPart = decPart.replace(/\d/g, d => '०१२३४५६७८९'[d]);
+                this.value = integerPart + '.' + decPart;
+            } else {
+                this.value = integerPart;
+            }
+        });
 
         function addTamasukGuarantor() {
             if (tGuarantorCount >= 5) {
@@ -577,13 +603,27 @@
                     const dotPattern = currentText.match(/\.+/);
                     const dotsLength = dotPattern ? dotPattern[0].length : 15;
                     const blankText = '.'.repeat(dotsLength);
-                    disp.textContent = input.value || blankText;
+                    
+                    if (input.value) {
+                        disp.textContent = input.value;
+                        disp.style.borderBottom = "1.5px dotted #000";
+                    } else {
+                        disp.textContent = blankText;
+                        disp.style.borderBottom = "none";
+                    }
                 }
             });
             
             // Borrower name is repeated
             const bName = document.getElementById('borrowerName').value;
-            document.getElementById('disp_borrowerName2').textContent = bName || '...........................................';
+            const dispBName2 = document.getElementById('disp_borrowerName2');
+            if (bName) {
+                dispBName2.textContent = bName;
+                dispBName2.style.borderBottom = "1.5px dotted #000";
+            } else {
+                dispBName2.textContent = '...........................................';
+                dispBName2.style.borderBottom = "none";
+            }
             
             // Generate Guarantors Table
             const tbody = document.getElementById('guarantorsTbody');

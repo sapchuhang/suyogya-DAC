@@ -210,77 +210,75 @@
         .page {
             width: 210mm;
             min-height: 297mm;
-            padding: 20mm;
+            padding: 8mm 12mm;
             margin: 0 auto 20px auto;
             background: white;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            font-family: 'Noto Sans Devanagari', sans-serif;
-            font-size: 11pt;
-            line-height: 1.6;
+            font-family: 'Noto Sans Devanagari', 'Kalimati', sans-serif;
+            font-size: 9pt;
+            line-height: 1.25;
             position: relative;
             box-sizing: border-box;
         }
 
-      
-
         .doc-header {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 4px;
         }
 
         .doc-header .title {
-            font-size: 10pt;
-            margin-bottom: 3px;
+            font-size: 8pt;
+            margin-bottom: 1px;
         }
 
         .doc-header .org-name {
-            font-size: 11pt;
+            font-size: 9.5pt;
             font-weight: bold;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .doc-header .address {
-            font-size: 10pt;
-            margin-bottom: 8px;
+            font-size: 8pt;
+            margin-bottom: 2px;
         }
 
         .doc-header .form-title {
-            font-size: 12pt;
+            font-size: 10pt;
             font-weight: bold;
             text-decoration: underline;
         }
 
         .recipient {
-            margin: 15px 0;
+            margin: 4px 0;
         }
 
         .date-right {
             text-align: right;
-            margin-bottom: 10px;
+            margin-bottom: 2px;
         }
 
         .subject {
-            margin: 15px 0;
+            margin: 4px 0;
             font-weight: bold;
         }
 
         .content-text {
             text-align: justify;
-            margin: 10px 0;
+            margin: 4px 0;
         }
 
         .section-heading {
             text-align: center;
             font-weight: bold;
-            margin: 15px 0;
+            margin: 4px 0;
             text-decoration: underline;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
-            font-size: 10pt;
+            margin: 3px 0;
+            font-size: 8pt;
         }
 
         table, th, td {
@@ -288,7 +286,7 @@
         }
 
         th, td {
-            padding: 6px;
+            padding: 2px 3px;
             text-align: center;
         }
 
@@ -298,53 +296,53 @@
         }
 
         .terms {
-            margin: 15px 0;
+            margin: 4px 0;
         }
 
         .terms-title {
             font-weight: bold;
             text-decoration: underline;
-            margin-bottom: 8px;
+            margin-bottom: 2px;
         }
 
         .terms ol {
-            margin-left: 20px;
+            margin-left: 16px;
         }
 
         .terms li {
-            margin-bottom: 8px;
+            margin-bottom: 2px;
         }
 
         .signature-section {
-            margin-top: 40px;
+            margin-top: 6px;
         }
 
         .signature-line {
             display: inline-block;
-            width: 200px;
+            width: 150px;
             border-bottom: 1px dotted #000;
-            margin: 30px 10px 5px 10px;
+            margin: 8px 8px 2px 8px;
         }
 
         .office-use {
-            margin-top: 30px;
+            margin-top: 6px;
             border-top: 2px solid #000;
-            padding-top: 15px;
+            padding-top: 4px;
         }
 
         .office-use-title {
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 2px;
         }
 
         .approval-section {
-            margin-top: 30px;
+            margin-top: 6px;
         }
 
         .flex-signature {
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
+            margin-top: 8px;
         }
 
         .signature-block {
@@ -381,15 +379,8 @@
             .page {
                 box-shadow: none;
                 margin: 0;
-                padding: 20mm;
+                padding: 6mm 8mm;
                 width: 100%;
-                page-break-inside: avoid;
-            }
-            .page:first-child {
-                page-break-after: always;
-            }
-            .page:last-child {
-                page-break-after: auto;
             }
         }
 
@@ -559,30 +550,30 @@
 
                     <div class="section-heading">तपशिल</div>
 
-                    <div style="margin: 15px 0;">
+                    <div style="margin: 5px 0;">
                         <strong>१. ऋण मागकर्ता सदस्यको नाम, थर :</strong>
-                        <div style="margin-left: 20px; margin-top: 8px;">
-                            <div><b>नाम/ थर :</b> <span id="dispName">........................</span></div>
-                            <div><b>बाबु/ पतिको नामथर :</b> <span id="dispFatherName">........................</span></div>
-                            <div><b>बाजे/ ससुराको नाम :</b> <span id="dispGrandfatherName">........................</span></div>
-                            <div><b>स्थायी ठेगाना :</b> <span id="dispDistrict">........................</span> जिल्ला <span id="dispMunicipality">........................</span> वडा नं <span id="dispTole">..................</span></div>
-                            <div><b>फोन नं :</b> <span id="dispPhone">........................</span></div>
+                        <div style="margin-left: 14px; margin-top: 3px;">
+                            <div>नाम/ थर : <span id="dispName">........................</span></div>
+                            <div>बाबु/ पतिको नामथर : <span id="dispFatherName">........................</span></div>
+                            <div>बाजे/ ससुराको नाम : <span id="dispGrandfatherName">........................</span></div>
+                            <div>स्थायी ठेगाना : <span id="dispDistrict">........................</span> जिल्ला <span id="dispMunicipality">........................</span> वडा नं <span id="dispTole">..................</span></div>
+                            <div>फोन नं : <span id="dispPhone">........................</span></div>
                         </div>
                     </div>
 
-                    <div style="margin: 15px 0;">
+                    <div style="margin: 5px 0;">
                         <strong>२. पेशाको विस्तृत विवरण</strong>
-                        <div style="margin-left: 20px; margin-top: 8px;">
+                        <div style="margin-left: 14px; margin-top: 3px;">
                             <div>फर्म/ व्यवसायको नाम : <span id="dispBusinessName">........................</span></div>
                             <div>ठेगाना : <span id="dispBusinessAddress">........................</span></div>
                         </div>
                     </div>
 
-                    <div style="margin: 15px 0;">
+                    <div style="margin: 5px 0;">
                         <div><strong>३. व्यवसाय संचालन गरेको घर :</strong> <span id="dispBusinessLocation">........................</span></div>
                     </div>
 
-                    <div style="margin: 20px 0;">
+                    <div style="margin: 5px 0;">
                         <strong>४. जमानत बस्ने सदस्यहरुको विवरण :</strong>
                         <table id="guarantorTable">
                             <thead>
@@ -604,10 +595,8 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
 
-                <div class="page">
-                    <div style="margin: 20px 0;">
+                    <div style="margin: 5px 0;">
                         <strong>५. धितोमा ऋण लिने भए सो को विवरण :</strong>
                         <table id="collateralTable">
                             <thead>
@@ -672,9 +661,7 @@
 
                         <div class="flex-signature">
                             <div class="signature-block">
-                          
-                                <div>मितिः <span id="dispDate">........................</span></div>
-                                
+                                <div>मितिः <span id="dispDate2">........................</span></div>
                             </div>
                             <div class="signature-block">
                                  <div class="signature-line"></div>
@@ -846,6 +833,14 @@
             document.getElementById('collateral' + id)?.remove();
         }
 
+        function fillField(id, value, fallback) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.textContent = value || fallback;
+                el.style.fontWeight = value ? 'bold' : 'normal';
+            }
+        }
+
         function generateForm() {
             const date = window.selectedNepaliDate || '';
             const membershipNo = document.getElementById('membershipNo').value || '';
@@ -862,23 +857,27 @@
             const businessAddress = document.getElementById('businessAddress').value || '';
             const businessLocation = document.getElementById('businessLocation').value || '';
 
-            document.getElementById('dispDate').textContent = date;
-            document.getElementById('dispMemberNo').textContent = membershipNo;
-            document.getElementById('dispLoanAmount').textContent = loanAmount;
-            document.getElementById('dispLoanAmount2').textContent = loanAmount;
-            document.getElementById('dispLoanAmount3').textContent = loanAmount;
-            document.getElementById('dispLoanAmountWords').textContent = loanAmountWords;
-            document.getElementById('dispName').textContent = name;
-            document.getElementById('dispName2').textContent = name;
-            document.getElementById('dispFatherName').textContent = fatherName;
-            document.getElementById('dispGrandfatherName').textContent = grandfatherName;
-            document.getElementById('dispDistrict').textContent = district;
-            document.getElementById('dispMunicipality').textContent = municipality;
-            document.getElementById('dispTole').textContent = tole;
-            document.getElementById('dispPhone').textContent = phone;
-            document.getElementById('dispBusinessName').textContent = businessName;
-            document.getElementById('dispBusinessAddress').textContent = businessAddress;
-            document.getElementById('dispBusinessLocation').textContent = businessLocation;
+            const dots24 = '........................';
+            const dots64 = '................................................................';
+
+            fillField('dispDate', date, dots24);
+            fillField('dispDate2', date, dots24);
+            fillField('dispMemberNo', membershipNo, dots24);
+            fillField('dispLoanAmount', loanAmount, dots24);
+            fillField('dispLoanAmount2', loanAmount, dots24);
+            fillField('dispLoanAmount3', loanAmount, dots24);
+            fillField('dispLoanAmountWords', loanAmountWords, dots64);
+            fillField('dispName', name, dots24);
+            fillField('dispName2', name, dots24);
+            fillField('dispFatherName', fatherName, dots24);
+            fillField('dispGrandfatherName', grandfatherName, dots24);
+            fillField('dispDistrict', district, dots24);
+            fillField('dispMunicipality', municipality, dots24);
+            fillField('dispTole', tole, '..................');
+            fillField('dispPhone', phone, dots24);
+            fillField('dispBusinessName', businessName, dots24);
+            fillField('dispBusinessAddress', businessAddress, dots24);
+            fillField('dispBusinessLocation', businessLocation, dots24);
 
             const guarantorTableBody = document.getElementById('guarantorTableBody');
             guarantorTableBody.innerHTML = '';
@@ -892,6 +891,7 @@
             } else {
                 guarantors.forEach((g, i) => {
                     const row = guarantorTableBody.insertRow();
+                    row.style.fontWeight = 'bold';
                     row.insertCell(0).textContent = i + 1;
                     row.insertCell(1).textContent = g.querySelector('.g-name').value || '';
                     row.insertCell(2).textContent = g.querySelector('.g-address').value || '';
@@ -915,6 +915,7 @@
             } else {
                 collaterals.forEach((c, i) => {
                     const row = collateralTableBody.insertRow();
+                    row.style.fontWeight = 'bold';
                     row.insertCell(0).textContent = i + 1;
                     row.insertCell(1).textContent = c.querySelector('.c-district').value || '';
                     row.insertCell(2).textContent = c.querySelector('.c-municipality').value || '';
