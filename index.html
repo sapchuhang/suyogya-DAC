@@ -407,7 +407,7 @@
         document.querySelectorAll('a[href]').forEach(link => {
             const href = link.getAttribute('href');
             // Only intercept internal page links (not logout/anchors)
-            if (href && !href.startsWith('#') && !href.startsWith('http') && href !== '/logout') {
+            if (href && !href.startsWith('#')&& href !== '/logout') {
                 link.addEventListener('click', function (e) {
                     e.preventDefault();
                     const target = this.getAttribute('href');
