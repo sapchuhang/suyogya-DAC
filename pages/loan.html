@@ -219,6 +219,18 @@
             line-height: 1.25;
             position: relative;
             box-sizing: border-box;
+            z-index: 1; /* Establishes stacking context */
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 65%;
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .doc-header {
@@ -525,6 +537,7 @@
             
             <div class="pages-container" id="output">
                 <div class="page">
+                    <img src="../assets/images/logo.png.png" class="watermark" alt="Watermark">
                     <div class="doc-header">
                         <div class="title">ऋण नीति–२०७७ (संशोधन सहित) को दफा ३.४ सँग सम्बन्धित</div>
                         <div class="org-name">सुयोग्य बचत तथा ऋण सहकारी संस्था लि.</div>
