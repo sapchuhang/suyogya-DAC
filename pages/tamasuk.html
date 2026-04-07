@@ -352,7 +352,17 @@
                 <div class="section">
                     <div class="section-title">ऋण विवरण</div>
                     <div class="form-group"><label>नागरिकता प्रमाण-पत्र नं</label><input type="text" id="citizenshipNo"></div>
-                    <div class="form-group"><label>ऋणको प्रयोजन (कार्य)</label><input type="text" id="purpose"></div>
+                    <div class="form-group"><label>ऋणको प्रयोजन (कार्य)</label>
+                        <select id="purpose">
+                            <option value="">छान्नुहोस्...</option>
+                            <option value="शैक्षीक">शैक्षीक</option>
+                            <option value="व्यवसायीक">व्यवसायीक</option>
+                            <option value="घरायसी">घरायसी</option>
+                            <option value="घरजग्गा खरीद">घरजग्गा खरीद</option>
+                            <option value="बैदेशीक रोजगार">बैदेशीक रोजगार</option>
+                            
+                        </select>
+                    </div>
                     <div class="form-group"><label>ऋण निवेदन मिति (२०८२)</label>
                         <div class="row">
                             <input type="text" id="appMonth" placeholder="महिना (उदा. ०४)">
