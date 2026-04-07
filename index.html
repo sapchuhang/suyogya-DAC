@@ -199,44 +199,7 @@
             z-index: 100;
         }
 
-        /* Page Transition Overlay */
-        #page-transition {
-            position: fixed;
-            inset: 0;
-            background: white;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
 
-        #page-transition.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        #page-transition img {
-            width: 120px;
-            animation: logoPulse 0.8s ease-in-out infinite alternate;
-        }
-
-        #page-transition p {
-            margin-top: 16px;
-            color: #004E17;
-            font-weight: 600;
-            font-size: 14px;
-            letter-spacing: 1px;
-            opacity: 0.8;
-        }
-
-        @keyframes logoPulse {
-            from { transform: scale(1);   opacity: 0.8; }
-            to   { transform: scale(1.08); opacity: 1;   }
-        }
     </style>
 
     <div class="container navbar-container">
@@ -388,12 +351,6 @@
 
 
 
-    <!-- Page Transition Overlay -->
-    <div id="page-transition">
-        <img src="./assets/images/logo.png.png" alt="Loading...">
-        <p>Loading...</p>
-    </div>
-
     <footer>
         <p>© 2025 suyogya saving & credit cooperative society limited. All rights reserved.</p>
     </footer>
@@ -402,24 +359,6 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
-    <script>
-        // Page transition on link click
-        document.querySelectorAll('a[href]').forEach(link => {
-            const href = link.getAttribute('href');
-            // Only intercept internal page links (not logout/anchors)
-            if (href && !href.startsWith('#') && !href.startsWith('http') && href !== '/logout') {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = this.getAttribute('href');
-                    const overlay = document.getElementById('page-transition');
-                    overlay.classList.add('active');
-                    setTimeout(() => {
-                        window.location.href = target;
-                    }, 500);
-                });
-            }
-        });
-    </script>
 
 </body>
 </html>
