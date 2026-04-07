@@ -505,10 +505,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="guarantorsTbody">
-                                        <tr><td style="height: 25px;"></td><td></td><td></td><td></td><td></td></tr>
-                                        <tr><td style="height: 25px;"></td><td></td><td></td><td></td><td></td></tr>
-                                        <tr><td style="height: 25px;"></td><td></td><td></td><td></td><td></td></tr>
-                                        <tr><td style="height: 25px;"></td><td></td><td></td><td></td><td></td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -641,26 +637,16 @@
             tbody.innerHTML = '';
             const guarantors = document.querySelectorAll('#guarantorsContainerTamasuk .guarantor-section');
             
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < guarantors.length; i++) {
                 const row = document.createElement('tr');
-                if (i < guarantors.length) {
-                    const g = guarantors[i];
-                    row.innerHTML = `
-                        <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-name').value}</td>
-                        <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-membership').value}</td>
-                        <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-address').value}</td>
-                        <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-amount').value}</td>
-                        <td style="border: 1px solid black; padding: 5px;"></td>
-                    `;
-                } else {
-                    row.innerHTML = `
-                        <td style="height: 25px; border: 1px solid black;"></td>
-                        <td style="border: 1px solid black;"></td>
-                        <td style="border: 1px solid black;"></td>
-                        <td style="border: 1px solid black;"></td>
-                        <td style="border: 1px solid black;"></td>
-                    `;
-                }
+                const g = guarantors[i];
+                row.innerHTML = `
+                    <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-name').value}</td>
+                    <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-membership').value}</td>
+                    <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-address').value}</td>
+                    <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-amount').value}</td>
+                    <td style="border: 1px solid black; padding: 5px;"></td>
+                `;
                 tbody.appendChild(row);
             }
         }
