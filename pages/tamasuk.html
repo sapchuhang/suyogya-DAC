@@ -365,7 +365,21 @@
                     </div>
                     <div class="form-group"><label>ऋण निवेदन मिति (२०८२)</label>
                         <div class="row">
-                            <input type="text" id="appMonth" placeholder="महिना (उदा. ०४)">
+                            <select id="appMonth">
+                                <option value="">महिना (उदा. बैशाख)</option>
+                                <option value="बैशाख">बैशाख</option>
+                                <option value="जेठ">जेठ</option>
+                                <option value="असार">असार</option>
+                                <option value="साउन">साउन</option>
+                                <option value="भदौ">भदौ</option>
+                                <option value="असोज">असोज</option>
+                                <option value="कार्तिक">कार्तिक</option>
+                                <option value="मंसिर">मंसिर</option>
+                                <option value="पुष">पुष</option>
+                                <option value="माघ">माघ</option>
+                                <option value="फाल्गुन">फाल्गुन</option>
+                                <option value="चैत">चैत</option>
+                            </select>
                             <input type="text" id="appDay" placeholder="गते (उदा. १५)">
                         </div>
                     </div>
@@ -380,7 +394,21 @@
                     <div class="form-group"><label>बुझाउने मिति</label>
                         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px;">
                             <input type="text" id="repayYear" placeholder="साल (उदा. ८३)">
-                            <input type="text" id="repayMonth" placeholder="महिना">
+                            <select id="repayMonth">
+                                <option value="">महिना</option>
+                                <option value="बैशाख">बैशाख</option>
+                                <option value="जेठ">जेठ</option>
+                                <option value="असार">असार</option>
+                                <option value="साउन">साउन</option>
+                                <option value="भदौ">भदौ</option>
+                                <option value="असोज">असोज</option>
+                                <option value="कार्तिक">कार्तिक</option>
+                                <option value="मंसिर">मंसिर</option>
+                                <option value="पुष">पुष</option>
+                                <option value="माघ">माघ</option>
+                                <option value="फाल्गुन">फाल्गुन</option>
+                                <option value="चैत">चैत</option>
+                            </select>
                             <input type="text" id="repayDay" placeholder="गते">
                         </div>
                     </div>
@@ -391,7 +419,16 @@
                     <div class="section-title">साक्षीहरु</div>
                     <div class="guarantor-section">
                         <h4>साक्षी १</h4>
-                        <div class="form-group"><input type="text" id="w1Name" placeholder="नाम"></div>
+                        <div class="form-group">
+                            <select id="w1Name">
+                                <option value="">नाम छान्नुहोस्...</option>
+                                <option value="अमृता तिम्लसिना">अमृता तिम्लसिना</option>
+                                <option value="फुल कुमारी नेम्बाङ्ग">फुल कुमारी नेम्बाङ्ग</option>
+                                <option value="साप्चुहाङ तुम्वाहाङफे">साप्चुहाङ तुम्वाहाङफे</option>
+                                <option value="कुन्जुम सुब्बा">कुन्जुम सुब्बा</option>
+                                <option value="सबिना ईवारम">सबिना ईवारम</option>
+                            </select>
+                        </div>
                         <div class="row">
                             <input type="text" id="w1District" placeholder="जिल्ला">
                             <input type="text" id="w1Mun" placeholder="न.पा/गा.पा">
@@ -404,7 +441,16 @@
                     </div>
                     <div class="guarantor-section">
                         <h4>साक्षी २</h4>
-                        <div class="form-group"><input type="text" id="w2Name" placeholder="नाम"></div>
+                        <div class="form-group">
+                            <select id="w2Name">
+                                <option value="">नाम छान्नुहोस्...</option>
+                                <option value="अमृता तिम्लसिना">अमृता तिम्लसिना</option>
+                                <option value="फुल कुमारी नेम्बाङ्ग">फुल कुमारी नेम्बाङ्ग</option>
+                                <option value="साप्चुहाङ तुम्वाहाङफे">साप्चुहाङ तुम्वाहाङफे</option>
+                                <option value="कुन्जुम सुब्बा">कुन्जुम सुब्बा</option>
+                                <option value="सबिना ईवारम">सबिना ईवारम</option>
+                            </select>
+                        </div>
                         <div class="row">
                             <input type="text" id="w2District" placeholder="जिल्ला">
                             <input type="text" id="w2Mun" placeholder="न.पा/गा.पा">
@@ -417,7 +463,16 @@
                     </div>
                     <div class="guarantor-section">
                         <h4>साक्षी ३</h4>
-                        <div class="form-group"><input type="text" id="w3Name" placeholder="नाम"></div>
+                        <div class="form-group">
+                            <select id="w3Name">
+                                <option value="">नाम छान्नुहोस्...</option>
+                                <option value="अमृता तिम्लसिना">अमृता तिम्लसिना</option>
+                                <option value="फुल कुमारी नेम्बाङ्ग">फुल कुमारी नेम्बाङ्ग</option>
+                                <option value="साप्चुहाङ तुम्वाहाङफे">साप्चुहाङ तुम्वाहाङफे</option>
+                                <option value="कुन्जुम सुब्बा">कुन्जुम सुब्बा</option>
+                                <option value="सबिना ईवारम">सबिना ईवारम</option>
+                            </select>
+                        </div>
                         <div class="row">
                             <input type="text" id="w3District" placeholder="जिल्ला">
                             <input type="text" id="w3Mun" placeholder="न.पा/गा.पा">
@@ -442,7 +497,21 @@
                 <div class="section">
                     <div class="section-title">आजको मिति</div>
                     <div class="row">
-                        <div class="form-group"><label>महिना</label><input type="text" id="tMonth"></div>
+                        <div class="form-group"><label>महिना</label><select id="tMonth">
+                            <option value="">महिना</option>
+                            <option value="बैशाख">बैशाख</option>
+                            <option value="जेठ">जेठ</option>
+                            <option value="असार">असार</option>
+                            <option value="साउन">साउन</option>
+                            <option value="भदौ">भदौ</option>
+                            <option value="असोज">असोज</option>
+                            <option value="कार्तिक">कार्तिक</option>
+                            <option value="मंसिर">मंसिर</option>
+                            <option value="पुष">पुष</option>
+                            <option value="माघ">माघ</option>
+                            <option value="फाल्गुन">फाल्गुन</option>
+                            <option value="चैत">चैत</option>
+                        </select></div>
                         <div class="form-group"><label>गते</label><input type="text" id="tDay"></div>
                     </div>
                     <div class="form-group"><label>रोज (बार)</label><input type="text" id="tDayOfWeek"></div>
@@ -487,7 +556,7 @@
                         <!-- Main Form Content Box -->
                         <div class="main-text">
                             <div>
-                                लिखितम धनीका नाम सहकारी ऐन, २०७४ बमोजिम सहकारी विभाग डिभिजन सहकारी कार्यालय काठमाडौंमा दर्ता भएको दर्ता नं १४४६/६४/६५ भई काठमाडौं जिल्ला काठमाडौं म.न.पा. वडा नं ३२ स्थित सुयोग्य बचत तथा ऋण सहकारी संस्था लि. धन व्यहोर्ने ऋणीको नाम श्री <span id="disp_grandparentName">...........................................</span> को नाती/नतिनी/बुहारी श्री <span id="disp_parentName">...........................................</span> का छोरा/छोरी/श्रीमती <span id="disp_borrowerName">...........................................</span> जिल्ला <span id="disp_permDistrict">......................</span> म.न.पा./न.पा./गा.पा., वडा नं <span id="disp_permWard">............</span> घर भै हाल <span id="disp_currLocation">...........................................</span> जिल्ला <span id="disp_currDistrict">......................</span> म.न.पा./न.पा./गा.पा., वडा नं <span id="disp_currWard">............</span> बस्ने नागरिकता प्रमाण-पत्र नं <span id="disp_citizenshipNo">...............................</span> का श्री/श्रीमती <span id="disp_borrowerName2">...........................................</span> ले <span id="disp_purpose">.................................</span> कार्य गर्नका लागि मिति २०८२ <span id="disp_appMonth">..............</span> <span id="disp_appDay">..............</span> मा पेश गरेको ऋण निवेदनमा उल्लेखित सर्तहरु र तपसिल बमोजिमको सम्पति धितो राखि संस्थाको निति, नियम र निर्देशन समेतलाई पालना गर्ने गरी आजका मितिमा रु. <span id="disp_loanAmount">...............................</span>/- (अक्षरेपी <span id="disp_loanAmountWords">...........................................................................</span>) ऋण लिएको ठिक साँचो हो । उक्त ऋण रकम र सो मा बार्षिक <span id="disp_interestRate">..............</span> % का दरले साथै संस्थाको नियमानुसार समय समयमा परिवर्तन हुने दर समेतको आधारमा हुने ब्याज समेत २०<span id="disp_repayYear">.......</span> साल <span id="disp_repayMonth">..............</span> महिना <span id="disp_repayDay">..............</span> गते भित्र <span id="disp_installments">..............</span> किस्तामा सम्पूर्ण साँवा तथा ब्याज यसै संस्थामा बुझाउने छु । जुन कार्यका लागि ऋण लिएको हो, सो कार्यमा नलगाएमा वा भाखाभित्र साँवा तथा ब्याज बुझाउन नसकेमा मेरो अन्य एकाघरको सगोलको परिवारको नाममा रहेको चल-अचल श्रीसम्पत्तिबाट प्रचलित कानुन बमोजिम असुलउपर गरिलिनु भएमा कुनै प्रकारको उजुरबाजुर गर्ने छैन भनि मेरो राजिखुशी तथा मन्जुरीले किनाराका साक्षीका रोहवरमा यस संस्थामा बसी यो तमसुकमा सहिछाप गरी वही संस्थालाई दिएँ ।
+                                लिखितम धनीका नाम सहकारी ऐन, २०७४ बमोजिम सहकारी विभाग डिभिजन सहकारी कार्यालय काठमाडौंमा दर्ता भएको दर्ता नं १४४६/६४/६५ भई काठमाडौं जिल्ला काठमाडौं म.न.पा. वडा नं ३२ स्थित सुयोग्य बचत तथा ऋण सहकारी संस्था लि. धन व्यहोर्ने ऋणीको नाम श्री <span id="disp_grandparentName">...........................................</span> को नाती/नतिनी/बुहारी श्री <span id="disp_parentName">...........................................</span> का छोरा/छोरी/श्रीमती <span id="disp_borrowerName">...........................................</span> जिल्ला <span id="disp_permDistrict">......................</span> म.न.पा./न.पा./गा.पा., वडा नं <span id="disp_permWard">............</span> घर भै हाल <span id="disp_currLocation">...........................................</span> जिल्ला <span id="disp_currDistrict">......................</span> म.न.पा./न.पा./गा.पा., वडा नं <span id="disp_currWard">............</span> बस्ने नागरिकता प्रमाण-पत्र नं <span id="disp_citizenshipNo">...............................</span> का श्री/श्रीमती <span id="disp_borrowerName2">...........................................</span> ले <span id="disp_purpose">.................................</span> कार्य गर्नका लागि मिति २०८२ <span id="disp_appMonth">..............</span> <span id="disp_appDay">..............</span> मा पेश गरेको ऋण निवेदनमा उल्लेखित सर्तहरु र तपसिल बमोजिमको सम्पति धितो राखि संस्थाको निति, नियम र निर्देशन समेतलाई पालना गर्ने गरी आजका मितिमा रु. <span id="disp_loanAmount">...............................</span>/- (अक्षरेपी <span id="disp_loanAmountWords">...........................................................................</span>मात्र) ऋण लिएको ठिक साँचो हो । उक्त ऋण रकम र सो मा बार्षिक <span id="disp_interestRate">..............</span> % का दरले साथै संस्थाको नियमानुसार समय समयमा परिवर्तन हुने दर समेतको आधारमा हुने ब्याज समेत २०<span id="disp_repayYear">.......</span> साल <span id="disp_repayMonth">..............</span> महिना <span id="disp_repayDay">..............</span> गते भित्र <span id="disp_installments">..............</span> किस्तामा सम्पूर्ण साँवा तथा ब्याज यसै संस्थामा बुझाउने छु । जुन कार्यका लागि ऋण लिएको हो, सो कार्यमा नलगाएमा वा भाखाभित्र साँवा तथा ब्याज बुझाउन नसकेमा मेरो अन्य एकाघरको सगोलको परिवारको नाममा रहेको चल-अचल श्रीसम्पत्तिबाट प्रचलित कानुन बमोजिम असुलउपर गरिलिनु भएमा कुनै प्रकारको उजुरबाजुर गर्ने छैन भनि मेरो राजिखुशी तथा मन्जुरीले किनाराका साक्षीका रोहवरमा यस संस्थामा बसी यो तमसुकमा सहिछाप गरी वही संस्थालाई दिएँ ।
                             </div>
 
                             <div class="table-container">
@@ -545,9 +614,11 @@
             
             let parts = rawValue.split('.');
             let integerPart = parts[0];
+            let numValue = parseInt(integerPart, 10);
+            
             if (integerPart) {
                 // Format with Indian System Comma
-                integerPart = parseInt(integerPart, 10).toLocaleString('en-IN');
+                integerPart = numValue.toLocaleString('en-IN');
                 // Translate ASCII back to Devanagari digits
                 integerPart = integerPart.replace(/\d/g, d => '०१२३४५६७८९'[d]);
             }
@@ -558,6 +629,37 @@
                 this.value = integerPart + '.' + decPart;
             } else {
                 this.value = integerPart;
+            }
+
+            // Nepali number to words
+            if (!isNaN(numValue) && numValue > 0) {
+                const nepaliNumbers = ["", "एक", "दुई", "तीन", "चार", "पाँच", "छ", "सात", "आठ", "नौ", "दश", "एघार", "बाह्र", "तेह्र", "चौध", "पन्ध्र", "सोह्र", "सत्र", "अठार", "उन्नाइस", "बीस", "एक्काइस", "बाइस", "तेइस", "चौबीस", "पच्चीस", "छब्बीस", "सत्ताइस", "अठ्ठाइस", "उनान्तीस", "तीस", "एकतीस", "बत्तीस", "तेत्तीस", "चौंतीस", "पैंतीस", "छत्तीस", "सैंतीस", "अठतीस", "उनान्चालीस", "चालीस", "एकचालीस", "बयालीस", "त्रियालीस", "चवालीस", "पैंतालीस", "छयालीस", "सच्चालीस", "अठचालीस", "उनान्पचास", "पचास", "एकाउन्न", "बाउन्न", "त्रिपन्न", "चौवन्न", "पचपन्न", "छपन्न", "सन्ताउन्न", "अन्ठाउन्न", "उनान्साठी", "साठी", "एकसठ्ठी", "बयसठ्ठी", "त्रिसठ्ठी", "चौंसठ्ठी", "पैंसठ्ठी", "छयसठ्ठी", "सतसठ्ठी", "अठसठ्ठी", "उनान्सत्तरी", "सत्तरी", "एकहत्तर", "बहत्तर", "त्रिहत्तर", "चौहत्तर", "पचहत्तर", "छयहत्तर", "सतहत्तर", "अठहत्तर", "उनान्अस्सी", "अस्सी", "एकासी", "बयासी", "त्रियासी", "चौरासी", "पचासी", "छयासी", "सतासी", "अठासी", "उनान्नब्बे", "नब्बे", "एकानब्बे", "बयानब्बे", "त्रियानब्बे", "चौरानब्बे", "पन्चानब्बे", "छयानब्बे", "सन्तानब्बे", "अन्ठानब्बे", "उनान्सय"];
+                let num = numValue;
+                let words = "";
+                let kharab = Math.floor(num / 100000000000);
+                num %= 100000000000;
+                let arab = Math.floor(num / 1000000000);
+                num %= 1000000000;
+                let crore = Math.floor(num / 10000000);
+                num %= 10000000;
+                let lakh = Math.floor(num / 100000);
+                num %= 100000;
+                let thousand = Math.floor(num / 1000);
+                num %= 1000;
+                let hundred = Math.floor(num / 100);
+                num %= 100;
+
+                if (kharab > 0) words += nepaliNumbers[kharab] + " खर्ब ";
+                if (arab > 0) words += nepaliNumbers[arab] + " अर्ब ";
+                if (crore > 0) words += nepaliNumbers[crore] + " करोड ";
+                if (lakh > 0) words += nepaliNumbers[lakh] + " लाख ";
+                if (thousand > 0) words += nepaliNumbers[thousand] + " हजार ";
+                if (hundred > 0) words += nepaliNumbers[hundred] + " सय ";
+                if (num > 0) words += nepaliNumbers[num];
+
+                document.getElementById('loanAmountWords').value = words.trim();
+            } else {
+                document.getElementById('loanAmountWords').value = "";
             }
         });
 
@@ -578,8 +680,7 @@
                     <input type="text" class="t-membership" placeholder="सदस्यता नं.">
                 </div>
                 <div class="row mt-2" style="margin-top: 5px;">
-                    <input type="text" class="t-address" placeholder="ठेगाना">
-                    <input type="text" class="t-amount" placeholder="कबुल रकम">
+                    <input type="text" class="t-address" placeholder="ठेगाना" style="grid-column: span 2;">
                 </div>
                 <button type="button" class="remove-btn" onclick="removeTamasukGuarantor(${tGuarantorCount})">हटाउनुहोस्</button>
             `;
@@ -637,14 +738,22 @@
             tbody.innerHTML = '';
             const guarantors = document.querySelectorAll('#guarantorsContainerTamasuk .guarantor-section');
             
+            const filledLoanAmount = document.getElementById('loanAmount').value || '';
+            const spanRows = guarantors.length > 0 ? guarantors.length : 1;
+            
             for (let i = 0; i < guarantors.length; i++) {
                 const row = document.createElement('tr');
                 const g = guarantors[i];
+                let amountCell = '';
+                if (i === 0) {
+                    amountCell = `<td rowspan="${spanRows}" style="border: 1px solid black; padding: 5px; vertical-align: middle;">${filledLoanAmount}</td>`;
+                }
+                
                 row.innerHTML = `
                     <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-name').value}</td>
                     <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-membership').value}</td>
                     <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-address').value}</td>
-                    <td style="border: 1px solid black; padding: 5px;">${g.querySelector('.t-amount').value}</td>
+                    ${amountCell}
                     <td style="border: 1px solid black; padding: 5px;"></td>
                 `;
                 tbody.appendChild(row);
@@ -654,6 +763,40 @@
         function printForm() {
             window.print();
         }
+
+        function handleWitnessChange(prefix) {
+            const nameEl = document.getElementById(prefix + 'Name');
+            if (nameEl.value === 'अमृता तिम्लसिना') {
+                document.getElementById(prefix + 'District').value = 'काभ्रे';
+                document.getElementById(prefix + 'Mun').value = 'मण्डनदेउपुर';
+                document.getElementById(prefix + 'Ward').value = '११';
+                document.getElementById(prefix + 'Age').value = '२५';
+            } else if (nameEl.value === 'कुन्जुम सुब्बा') {
+                document.getElementById(prefix + 'District').value = 'तेह्रथुम';
+                document.getElementById(prefix + 'Mun').value = 'छातेढङगा';
+                document.getElementById(prefix + 'Ward').value = '१';
+                document.getElementById(prefix + 'Age').value = '३१';
+            } else if (nameEl.value === 'फुल कुमारी नेम्बाङ्ग') {
+                document.getElementById(prefix + 'District').value = 'पाँचथर';
+                document.getElementById(prefix + 'Mun').value = 'फिदिम';
+                document.getElementById(prefix + 'Ward').value = '४';
+                document.getElementById(prefix + 'Age').value = '५४';
+            } else if (nameEl.value === 'सबिना ईवारम') {
+                document.getElementById(prefix + 'District').value = 'ताप्लेजुङ';
+                document.getElementById(prefix + 'Mun').value = 'सिरिजङगा';
+                document.getElementById(prefix + 'Ward').value = '१';
+                document.getElementById(prefix + 'Age').value = '२४';
+            } else if (nameEl.value === 'साप्चुहाङ तुम्वाहाङफे') {
+                document.getElementById(prefix + 'District').value = 'तेह्रथुम';
+                document.getElementById(prefix + 'Mun').value = 'म्याङलुङ्ग';
+                document.getElementById(prefix + 'Ward').value = '२';
+                document.getElementById(prefix + 'Age').value = '२७';
+            }
+        }
+
+        document.getElementById('w1Name').addEventListener('change', () => handleWitnessChange('w1'));
+        document.getElementById('w2Name').addEventListener('change', () => handleWitnessChange('w2'));
+        document.getElementById('w3Name').addEventListener('change', () => handleWitnessChange('w3'));
     </script>
 </body>
 </html>
