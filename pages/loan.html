@@ -853,6 +853,10 @@
             } else {
                 document.getElementById('loanAmountWords').value = '';
             }
+            // Auto update all guarantor accepted amount fields
+            document.querySelectorAll('.g-accepted').forEach(input => {
+                input.value = val;
+            });
         });
 
         function addGuarantor() {
@@ -861,6 +865,7 @@
             const div = document.createElement('div');
             div.className = 'guarantor-section';
             div.id = 'guarantor' + guarantorCount;
+            const currentLoanAmount = document.getElementById('loanAmount').value || '';
             div.innerHTML = `
                 <h4>जमानी ${guarantorCount}</h4>
                 <div class="form-group">
@@ -888,7 +893,7 @@
                     </div>
                     <div class="form-group">
                         <label>कबुल रकम</label>
-                        <input type="text" class="g-accepted">
+                        <input type="text" class="g-accepted" value="${currentLoanAmount}">
                     </div>
                 </div>
                 <button type="button" class="remove-btn" onclick="removeGuarantor(${guarantorCount})">हटाउनुहोस्</button>
@@ -1012,8 +1017,17 @@
                     row.insertCell(3).textContent = g.querySelector('.g-membership').value || '';
                     row.insertCell(4).textContent = g.querySelector('.g-savings').value || '';
                     row.insertCell(5).textContent = g.querySelector('.g-share').value || '';
-                    row.insertCell(6).textContent = g.querySelector('.g-accepted').value || '';
-                    row.insertCell(7).textContent = '';
+                    
+                    if (i === 0) {
+                        const cell = row.insertCell(6);
+                        cell.textContent = g.querySelector('.g-accepted').value || '';
+                        cell.rowSpan = guarantors.length;
+                        cell.style.verticalAlign = 'middle';
+                        
+                        row.insertCell(7).textContent = '';
+                    } else {
+                        row.insertCell(6).textContent = '';
+                    }
                 });
             }
 
